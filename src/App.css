@@ -1,7 +1,8 @@
-.App {
-  text-align: center;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 .App-link {
   color: #61dafb;
 }
@@ -15,4 +16,42 @@
   color: #ffde59;
 }
 
+.flex-col-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.flex-row-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+li{
+  list-style: none;
+  cursor:pointer;
+}
+
+.main-section{
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
+
+.main-content {
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+  padding: 1rem;
+}
+
+.notecard-conatiner {
+  width: 100%;
+  grid-gap: 1rem;
+  grid-gap: 1rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}

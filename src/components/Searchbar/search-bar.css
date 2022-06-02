@@ -1,0 +1,18 @@
+.search-bar{
+    gap: 10px;
+    width: 50%;
+    min-width: 17rem;
+    padding: 0.5rem;
+    border: 1px solid gray;
+    justify-content: space-between;
+}
+
+.search-bar-input{
+    width: 90%;
+    background: transparent;
+    border: transparent;
+}
+
+.search-bar-icon{
+    color: #5348c7;
+}

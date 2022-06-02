@@ -1,0 +1,53 @@
+.asidebar {
+    display: flex;
+    width: auto;
+    max-width: 15rem;
+    height: 90vh;
+    background-color: #cdc9f7;
+    color: black;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 2rem 0;
+}
+
+
+.asidebar-menu{
+gap: 1rem;
+}
+
+.asidebar-list {
+    padding: 0;
+    align-items: flex-start;
+    grid-gap: 0.5rem;
+    gap: 1.2rem;
+}
+
+.asidebar-btn {
+    border: transparent;
+    color: white;
+    font-size: 1rem;
+    padding: 0.6rem;
+    background: #5348C7;
+}
+
+.asidebar-user{
+    padding: 0 1rem;
+ gap: 0.5rem;
+ justify-content: space-between;
+}
+
+.asidebar-user-details{
+    gap: 0.5rem;
+}
+.asidebar-user-name-small{
+    font-size: 0.5rem;
+    font-weight: 400;
+}
+.asidebar-user-logo{
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    background-color: #5348C7;
+    color: white;
+ 
+}
