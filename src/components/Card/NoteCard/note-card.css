@@ -1,0 +1,46 @@
+.note-card {
+    gap: 1rem;
+  align-items: flex-start;
+  width: auto;
+  max-width: 17rem;
+  padding:1rem;
+  border: transparent;
+  height: auto;
+  background-color: aquamarine;
+}
+
+.note-card-header {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.note-card-body{
+  width: 100%;
+  height: auto;
+}
+.note-card-label {
+  line-height: 16px;
+  border-radius: 5px;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 8px;
+  color: black;
+  background-color: rgb(105, 105, 105);
+}
+
+.note-card-created {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.note-card-footer-icons {
+  gap: 0.8rem;
+}
+
+.note-card-footer {
+  gap: 2rem;
+  color: rgb(92, 92, 92);
+  width: 100%;
+  justify-content: space-between;
+  margin: 0 -9px;
+}
