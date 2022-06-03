@@ -14,9 +14,9 @@ import { useNoteContext } from "../../Context/noteContext";
 import { NavLink, useLocation } from "react-router-dom";
 import { NoteModal } from "../Modals/NoteModal/NoteModal";
 function Asidebar() {
-  const { notesDispatch, notesState } = useNoteContext();
-  const { isModalOpen } = notesState;
-  const { location } = useLocation();
+  const { noteDispatch } = useNoteContext();
+  // const { isModalOpen } = notesState;
+  // const { location } = useLocation();
   return (
     <div className="asidebar">
       <div className="asidebar-menu flex-col-center">
@@ -50,7 +50,7 @@ function Asidebar() {
 
         <button
           className="asidebar-btn"
-          onClick={() => notesDispatch({ type: "SHOW_MODAL", payload: true })}
+          onClick={() => noteDispatch({ type: "NOTE_MODAL", payload: true })}
         >
           Create New Note
         </button>

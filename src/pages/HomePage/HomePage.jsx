@@ -9,19 +9,11 @@ import { useNoteContext } from '../../Context/noteContext'
 
 function HomePage() {
 
-  const { notesState }  = useNoteContext();
-  const { 
-    user,
-    notes,
-    noteId,
-    title,
-    description,
-    backgroundColor,
-    label,
-    priority,
-    isModalOpen,
-    
-   } = notesState
+  const { noteState }  = useNoteContext();
+  // console.log("🚀 ~ file: HomePage.jsx ~ line 13 ~ HomePage ~ adddToNotes", noteState)
+  const { addToNotes } = noteState
+  console.log("🚀 ~ file: HomePage.jsx ~ line 13 ~ HomePage ~ adddToNotes", addToNotes)
+
   return (
     <div>
      <Navbar/>
@@ -31,8 +23,8 @@ function HomePage() {
           <Searchbar/>
           <div className='notecard-conatiner flex-row-center'>
           {
-            notes.map((note)=>(
-              <NoteCard/>
+            addToNotes.map((note)=>(
+              <NoteCard key={note._id} note={note}/>
             ))
           }
           </div>
