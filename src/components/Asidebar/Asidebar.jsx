@@ -39,11 +39,11 @@ function Asidebar() {
             </li>
           </NavLink>
 
-          <NavLink to="/profile">
+          {/* <NavLink to="/profile">
             <li className="asidebar-list-items">
               <FaRegUserCircle /> Profile
             </li>
-          </NavLink>
+          </NavLink> */}
 
           {/* <li className="asidebar-list-items"><MdLabelOutline/> Label</li> */}
         </ul>

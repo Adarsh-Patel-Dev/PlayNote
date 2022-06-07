@@ -9,9 +9,9 @@ function NoteModal() {
 
  
 
-  const { noteDispatch, title, priority, textareaValue, label, addNote, notesBgColor, noteModal } = useNoteContext();
+  const { noteDispatch, title, priority, textareaValue, label, addNote, editNote, notesBgColor, noteModal, isEdit } = useNoteContext();
 
-
+ console.log("is editttttttttt", isEdit)
 
   return (
     <div
@@ -19,7 +19,8 @@ function NoteModal() {
       className="modal--container"
     >
       <div id="myModal" className="modal" style={{ backgroundColor:notesBgColor }} >
-      <form onSubmit={addNote}>
+      <form onSubmit={isEdit?editNote:addNote}>
+      {/* <form onSubmit={addNote}> */}
         <div className="modal-content">
           <MdClose
             onClick={() => {
@@ -131,7 +132,7 @@ function NoteModal() {
             </div>
 
             <p className="modal-title">Description</p>
-            <textarea
+            {/* <textarea
               required
               className="modal-textarea"
               value={textareaValue}
@@ -139,13 +140,13 @@ function NoteModal() {
               onChange={(e) =>
                 noteDispatch({ type: "TEXTAREA", payload: e.target.value })
               }
-            />
+            /> */}
            
-            {/* <div>
-              <RichTextEditor/>
-            </div> */}
+            <div>
+              <RichTextEditor textAreaValue={textareaValue}/>
+            </div>
 
-            <div className="color-pallete">
+            <span className="color-pallete">
               {/* <input type="submit" className="asidebar-btn"/> */}
               <label htmlFor="create-color">
               <MdOutlineColorLens >colorLens</MdOutlineColorLens>
@@ -163,12 +164,12 @@ function NoteModal() {
               
               </span>
               </label>
-            </div>
+            </span>
 
             <input type="submit" 
-            value="Add Note"
+            value={isEdit?"Update":"Add Note"}
              style={{position: "absolute",bottom: "1rem",right: "1rem"}}
-              className="asidebar-btn"
+              className="submit-btn"
             />
 
             {/* <div className="modal--btn">

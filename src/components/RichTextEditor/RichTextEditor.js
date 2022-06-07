@@ -4,17 +4,31 @@ import 'react-quill/dist/quill.snow.css';
 import { useNoteContext } from "../../Context/noteContext";
 import "./richTextEditor.css"
 
-function RichTextEditor() {
-    const { textAreaValue, noteDispatch } = useNoteContext();
+function RichTextEditor({textAreaValue}) {
+    const { noteState, noteDispatch } = useNoteContext();
+    // const { textAreaValue } = noteState;
+   
+    const modules = {
+      toolbar: [
+          ['bold', 'italic', 'underline','strike', 'blockquote'],
+          [{ 'color': [] }, { 'background': [] }],
+          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+          ['link', 'image'],
+          ['clean']
+      ],
+  }
+
   return (
     <div>
        <ReactQuill
+       modules={modules}
+      //  formats={formats}
        theme="snow"
        required
-       value={ textAreaValue } 
+       value={ textAreaValue || '' } 
        onChange={(event) => noteDispatch({
            type: "TEXTAREA",
-           payload: event.target.value || "",
+           payload: event ,
        })
        }    
        className = "editor"

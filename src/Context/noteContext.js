@@ -2,164 +2,392 @@ import { RepeatOneSharp } from "@mui/icons-material";
 import axios from "axios";
 import { useEffect, createContext, useContext } from "react";
 import { useReducer } from "react";
-import { v4 as uuid } from "uuid"
+import { v4 as uuid } from "uuid";
 
 const NoteContext = createContext();
 const useNoteContext = () => useContext(NoteContext);
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMzA4ZDA3NC1iY2RkLTRjMTEtYmVkOS0wMzhhZWRhZmM0ZjciLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.yj4z6vXmZHq66VSH7-pQ9JoPjZR6WJcVgDKejj3vJfk" ;
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMzA4ZDA3NC1iY2RkLTRjMTEtYmVkOS0wMzhhZWRhZmM0ZjciLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.yj4z6vXmZHq66VSH7-pQ9JoPjZR6WJcVgDKejj3vJfk";
 
 localStorage.setItem("token", token);
 
 function NotesProvider({ children }) {
+  function noteReducer(state, action) {
+    switch (action.type) {
+      case "GET_NOTES":
+        return { ...state, getNotes: action.payload };
+      case "POST_NOTES":
+        return { ...state, postNotes: action.payload };
+      case "TITLE":
+        return { ...state, title: action.payload };
+      case "PRIORITY":
+        return { ...state, priority: action.payload };
+      case "LABEL":
+        return { ...state, label: action.payload };
+      case "TEXTAREA":
+        return { ...state, textareaValue: action.payload };
+      case "ADD_TO_NOTES":
+        return { ...state, addToNotes: action.payload };
+      case "IS_EDIT":
+        return { ...state, isEdit: action.payload };
+      case "EDIT_NOTE":
+        return { ...state, ...action.payload };
 
-    function noteReducer( state, action ){
-        switch(action.type){
-            case "GET_NOTES":
-                return { ...state, getNotes: action.payload }
-            case "POST_NOTES":
-                return { ...state, postNotes: action.payload }
-            case "TITLE":
-                return { ...state, title: action.payload }
-            case "PRIORITY":
-                return { ...state, priority: action.payload }
-            case "LABEL":
-                return { ...state, label: action.payload }
-            case "TEXTAREA":
-                return { ...state, textareaValue: action.payload }
-            case "ADD_TO_NOTES":
-                return { ...state, addToNotes: action.payload }
+      case "GET_ARCHIVE_NOTES":
+        return { ...state, archiveNotes: action.payload };
+      case "ADD_TO_ARCHIVE":
+        return { ...state, archiveNotes: action.payload };
+      case "RESTORE_FROM_ARCHIVE":
+        return { ...state, archiveNotes: action.payload };
+      case "DELETE_FROM_ARCHIVE":
+        return { ...state, archiveNotes: action.payload };
 
-            case "ADD_TO_TRASH":
-                return { ...state, trashNotes: action.payload }
-            case "DELETE_FROM_TRASH":
-                return { ...state, trashNotes: action.payload }
+      case "GET_TRASH_NOTES":
+        return { ...state, trashNotes: action.payload };
+      case "ADD_TO_TRASH":
+        return { ...state, trashNotes: action.payload };
+      case "RESTORE_FROM_TRASH":
+        return { ...state, trashNotes: action.payload };
+      case "DELETE_FROM_TRASH":
+        return { ...state, trashNotes: action.payload };
 
-            case "ADD_TO_ARCHIVE":
-                return { ...state, archiveNotes: action.payload }
-            case "UNARCHIVE":
-                return { ...state, archiveNotes: action.payload }
-
-            case "NOTES_BG_COLOR":
-                return { ...state, notesBgColor: action.payload }
-            case "NOTE_MODAL":
-                return { ...state, noteModal: action.payload }
-            case "NOTE_CREATED_DATE":
-                return { ...state, noteCreatedDate: action.payload }
-            case "CLEAR_INPUT":
-                return{ ...state, title:"", textareaValue:"", priority:"", label:"", notesBgColor:"#ffffff", }    
-
-            default: return state;   
-        }
-    }
-     const newDate  = new Date();
-   
-
-    const date = newDate.getDate() + "/" + (newDate.getMonth()+1) + "/" + newDate.getFullYear();
-
-    const formattedMinutes = (newDate.getMinutes().length == 1 ? "0"+newDate.getMinutes(): newDate.getMinutes())
-
-    const formattedHours = (newDate.getHours().length == 1 ? "0"+newDate.getHours(): newDate.getHours())
-
-    const time = formattedHours + ":" + formattedMinutes ;
-    const noteCreatedDate = date + " at " + time;
- 
-
-    const [ noteState, noteDispatch ] = useReducer( noteReducer, {
-        getNotes:[],
-        postNotes:[],
-        addToNotes:[],
-        archiveNotes:[],
-        trashNotes:[],
-        title:"",
-        priority:"",
-        label:"",
-        textareaValue:"",
-        notesBgColor:"#ffffff",
-        noteModal:false,
-        noteCreatedDate:"",
-    } )
-    
-    const { 
-        addToNotes,
-        title,
-        priority,
-        label,
-        textareaValue,
-        notesBgColor,
-        noteModal,
-    } = noteState;
-
-    console.log(addToNotes);
-
-
-   async function getNotesData(){
-       try{
-           const response = await axios({
-               method: "GET",
-               url: "/api/notes",
-               headers: { authorization: localStorage.getItem("token")},
-           })
-           if(response.status === 200){
-            noteDispatch({ type: "GET_NOTES", payload: response.data.notes})
-            console.log(response.data.notes)
-           }
-       } catch( error) {
-           console.log(error)
-       }
-   }
-
-
-   async function addNote(e){
-        e.preventDefault();
-        const note = {
-        _id: uuid(),
-        title,
-        priority,
-        label,
-        textareaValue,
-        notesBgColor,
-        noteCreatedDate,
+      case "NOTES_BG_COLOR":
+        return { ...state, notesBgColor: action.payload };
+      case "NOTE_MODAL":
+        return { ...state, noteModal: action.payload };
+      case "NOTE_CREATED_DATE":
+        return { ...state, noteCreatedDate: action.payload };
+      case "CLEAR_INPUT":
+        return {
+          ...state,
+          title: "",
+          textareaValue: "",
+          priority: "",
+          label: "",
+          notesBgColor: "#ffffff",
         };
 
-        try{
-           const reponse = await axios({
-                method: "POST",
-                url: "/api/notes/",
-                headers: { authorization: localStorage.getItem("token") },
-                data: { note },
-            })
-            if( reponse.status === 201){
-                noteDispatch({ type:"ADD_TO_NOTES", payload:reponse.data.notes, })
-                noteDispatch({ type:"CLEAR_INPUT", })
-                noteDispatch({ type:"NOTE_MODAL", payload:false })
-                console.log(reponse.data.notes)
-            }
+      default:
+        return state;
+    }
+  }
+  const newDate = new Date();
 
-        } catch(error){
-            console.log(error)
+  const date =
+    newDate.getDate() +
+    "/" +
+    (newDate.getMonth() + 1) +
+    "/" +
+    newDate.getFullYear();
+
+  const formattedMinutes =
+    newDate.getMinutes().length == 1
+      ? "0" + newDate.getMinutes()
+      : newDate.getMinutes();
+
+  const formattedHours =
+    newDate.getHours().length == 1
+      ? "0" + newDate.getHours()
+      : newDate.getHours();
+
+  const time = formattedHours + ":" + formattedMinutes;
+  const noteCreatedDate = date + " at " + time;
+
+  const [noteState, noteDispatch] = useReducer(noteReducer, {
+    getNotes: [],
+    postNotes: [],
+    addToNotes: [],
+    archiveNotes: [],
+    trashNotes: [],
+    title: "",
+    priority: "",
+    label: "",
+    textareaValue: "",
+    notesBgColor: "#ffffff",
+    noteModal: false,
+    noteCreatedDate: "",
+    isEdit: false,
+  });
+
+  const {
+    addToNotes,
+    title,
+    priority,
+    label,
+    textareaValue,
+    notesBgColor,
+    noteModal,
+    isEdit,
+  } = noteState;
+
+  console.log(addToNotes,"addtonotes");
+
+  async function getNotesData() {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: "/api/notes",
+        headers: { authorization: localStorage.getItem("token") },
+      });
+      if (response.status === 200) {
+        noteDispatch({ type: "GET_NOTES", payload: response.data.notes });
+        console.log(response.data.notes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function addNote(e) {
+    e.preventDefault();
+    const note = {
+      _id: uuid(),
+      title,
+      priority,
+      label,
+      textareaValue,
+      notesBgColor,
+      noteCreatedDate,
+    };
+
+    try {
+      const response = await axios({
+        method: "POST",
+        url: "/api/notes/",
+        headers: { authorization: localStorage.getItem("token") },
+        data: { note },
+      });
+      if (response.status === 201) {
+        noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
+        noteDispatch({ type: "CLEAR_INPUT" });
+        noteDispatch({ type: "NOTE_MODAL", payload: false });
+        console.log(response.data.notes);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function editNote(e){
+    e.preventDefault();
+    const note = {
+      _id,
+      title,
+      priority,
+      label,
+      textareaValue,
+      notesBgColor,
+      noteCreatedDate,
+    };
+
+      console.log("from edit")
+      try{
+          const response = await axios({
+              method: "POST",
+              url: `/api/notes/${note._id}`,
+              headers: { authorization: localStorage.getItem("token") },
+              data: { note},
+          })
+          if( true ){
+            noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
+            noteDispatch({ type: "CLEAR_INPUT" });
+            noteDispatch({ type: "NOTE_MODAL", payload: false });
+            console.log(response.data.notes);
+          }
+      } catch ( error ){
+          console.log(error)
+      }
+  }
+
+
+
+  async function getArchiveNotes(noteDispatch){
+    try{
+        const response = await axios({
+            method: "GET",
+            url: "/api/archives/",
+            headers: { authorization: localStorage.getItem("token") },
+        });
+        if( true ){
+            noteDispatch({ type:"GET_ARCHIVE_NOTES", payload: response.data.archives })
+            console.log(response.data.archives)
         }
-   }
-
-   function toggleNotes(){
-       noteDispatch({
-           type: "NOTE_MODAL",
-           payload: true,
-       })
-   }
-
-   useEffect(()=>{
-       getNotesData();
-   },[]);
-
-   return (
-       <NoteContext.Provider value={{
-           addToNotes, noteDispatch, noteState, priority, label, textareaValue, addNote, notesBgColor, toggleNotes, noteModal,
-       }}>
-           {children}
-       </NoteContext.Provider>
-   );
-
+    } catch(error){
+        console.log(error);
+    }
 }
 
-export { useNoteContext, NotesProvider }
+async function adddToArchive (note,noteDispatch){
+    console.log("from archivee")
+    try{
+        const response = await axios({
+            method:"POST",
+            url: `api/notes/archives/${note._id}`,
+            headers: { authorization: localStorage.getItem("token") },
+            data: { note: note},
+        })
+        if( response.status === 201 ){
+            noteDispatch({ type:"ADD_TO_ARCHIVE", payload: response.data.archives})
+            noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+            console.log("from archive ALLnotes",response.data.notes)
+            console.log("from archive",response.data.archives)
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+async function restoreFromArchive (_id, noteDispatch){
+    try{
+        const response = await axios({
+            method:"POST",
+            url: `/api/archives/restore/${_id}`,
+            headers: { authorization: localStorage.getItem("token") },
+            
+        })
+        if(response.status === 200 ){
+            noteDispatch({ type:"RESTORE_FROM_ARCHIVE", payload: response.data.archives })
+            noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+            console.log("from archive",response.data.archives)
+            console.log("from archive ALLnotes",response.data.notes)
+
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+async function deleteFromArchive (_id, noteDispatch){
+    try{
+        const response = await axios({
+            method:"DELETE",
+            url: `/api/archives/delete/${_id}`,
+            headers: { authorization: localStorage.getItem("token") },
+            
+        })
+        if(response.status === 200 ){
+            noteDispatch({ type:"DELETE_FROM_ARCHIVE", payload: response.data.archives })
+            console.log("from archive",response.data.archives)
+
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+async function getTrashNotes(){
+    try{
+        const response = await axios({
+            method: "GET",
+            url: "/api/trash",
+            headers: { authorization: localStorage.getItem("token") },
+        })
+        if( true ){
+            noteDispatch({ type:"GET_TRASH_NOTES", payload: response.data.trash })
+            console.log(response.data.trash)
+        }
+    } catch(error){
+        console.log(error);
+    }
+}
+
+async function adddToTrash (note,noteDispatch){
+    console.log("from trash function")
+    try{
+        const response = await axios({
+            method:"POST",
+            url: `/api/notes/trash/${note._id}`,
+            headers: { authorization: localStorage.getItem("token") },
+        })
+        if(response.status === 201 ){
+            noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
+            noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+            console.log("from trash", response.data.trash)
+            console.log("from trash ALLNOTES", response.data.notes )
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+async function restoreFromTrash (_id,noteDispatch){
+    try{
+        const response = await axios({
+            method:"POST",
+            url: `/api/trash/restore/${_id}`,
+            headers: { authorization: localStorage.getItem("token") },
+            data: {},
+        })
+        if(true ){
+            noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
+            noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+            console.log("from trash", response.data.trash)
+            console.log("from trash ALLNOTES", response.data.notes )
+
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+async function deleteFromTrash (_id, noteDispatch){
+    try{
+        const response = await axios({
+            method:"DELETE",
+            url: `/api/trash/delete/${_id}`,
+            headers: { authorization: localStorage.getItem("token") },
+            data: {},
+        })
+        if(true ){
+            noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
+            console.log("from trash", response.data.trash)
+        }
+    } catch(error){
+        console.log(error)
+    }
+}
+
+  function toggleNotes() {
+    noteDispatch({
+      type: "NOTE_MODAL",
+      payload: true,
+    });
+  }
+
+  useEffect(() => {
+    getNotesData();
+  }, []);
+
+  return (
+    <NoteContext.Provider
+      value={{
+        addToNotes,
+        noteDispatch,
+        noteState,
+        priority,
+        label,
+        textareaValue,
+        addNote,
+        notesBgColor,
+        toggleNotes,
+        noteModal,
+        getArchiveNotes,
+        adddToArchive,
+        restoreFromArchive,
+        deleteFromArchive,
+        getTrashNotes,
+        adddToTrash,
+        restoreFromTrash,
+        deleteFromTrash,
+        editNote,
+        isEdit,
+
+      }}
+    >
+      {children}
+    </NoteContext.Provider>
+  );
+}
+
+export { useNoteContext, NotesProvider };
