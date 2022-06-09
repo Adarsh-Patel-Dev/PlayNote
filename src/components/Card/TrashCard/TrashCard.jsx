@@ -33,10 +33,11 @@ function TrashCard({ note }) {
         </span>
       </div>
 
-      <div className="note-card-body">{textareaValue}</div>
+      <div dangerouslySetInnerHTML={{__html:textareaValue}}
+      className="note-card-body"></div>
       <div className="card-label-priority">
-        <span className="note-card-label">{label}</span>
-        <span className="note-card-priority">{priority}</span>
+      <div className="note-card-label"><MdLabelOutline/>{label}</div>
+        <span className="note-card-label">{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>

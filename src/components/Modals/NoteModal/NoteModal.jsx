@@ -9,9 +9,11 @@ function NoteModal() {
 
  
 
-  const { noteDispatch, title, priority, textareaValue, label, addNote, editNote, notesBgColor, noteModal, isEdit } = useNoteContext();
+  const { noteState, noteDispatch, title, priority, textareaValue, label, addNote, editNote, notesBgColor, noteModal, isEdit } = useNoteContext();
 
- console.log("is editttttttttt", isEdit)
+//  console.log("is editttttttttt", noteState)
+ console.log("is editttttttttt", noteState.title)
+ console.log("is textarea", textareaValue)
 
   return (
     <div
@@ -20,7 +22,6 @@ function NoteModal() {
     >
       <div id="myModal" className="modal" style={{ backgroundColor:notesBgColor }} >
       <form onSubmit={isEdit?editNote:addNote}>
-      {/* <form onSubmit={addNote}> */}
         <div className="modal-content">
           <MdClose
             onClick={() => {
@@ -34,7 +35,7 @@ function NoteModal() {
             <p className="modal-title">Title</p>
             <input
               placeholder="enter title of note"
-              value={title}
+              value={noteState.title}
               required
               onChange={(e) =>
                 noteDispatch({ type: "TITLE", payload: e.target.value })

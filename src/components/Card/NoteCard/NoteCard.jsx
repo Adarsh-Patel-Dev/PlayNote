@@ -22,12 +22,7 @@ function NoteCard({ note }) {
     isEdit,
   } = note;
   const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
-
-  // const edithandler = (note) =>{
-  //   noteDispatch({ type:"IS_EDIT", payload:true})
-  //   noteDispatch({ type:"NOTE_MODAL", payload:true})
-  //   noteDispatch({ type:"ADD_TO_NOTES", payload:note})
-  // }
+  console.log("from note card", note);
 
   return (
     <div
@@ -41,12 +36,16 @@ function NoteCard({ note }) {
         </span>
       </div>
 
-      <div dangerouslySetInnerHTML={{__html:textareaValue}}
-      className="note-card-body"></div>
+      <div
+        dangerouslySetInnerHTML={{ __html: textareaValue }}
+        className="note-card-body"
+      ></div>
 
-      {/* <div className="note-card-body">{textareaValue}</div> */}
       <div className="card-label-priority">
-        <div className="note-card-label"><MdLabelOutline/>{label}</div>
+        <div className="note-card-label">
+          <MdLabelOutline />
+          {label}
+        </div>
         <span className="note-card-label">{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
@@ -54,21 +53,14 @@ function NoteCard({ note }) {
         <div className="note-card-footer-icons flex-row-center">
           <span className="note-card-footer-icon">
             <MdOutlineModeEdit
-             onClick={()=>{
-               noteDispatch({
-                 type:"EDIT_NOTE",
-                 payload:{
-                   _id:_id,
-                   isEdit: true,
-                   title:title,
-                   textareaValue:textareaValue,
-                   label:label,
-                   priority:priority,
-                   noteModal:true,
-                   notesBgColor:notesBgColor,
-                 }
-               })
-             }}
+              onClick={() => {
+                noteDispatch({ type: "IS_EDIT", payload: true });
+                noteDispatch({ type: "NOTE_MODAL", payload: true });
+                noteDispatch({
+                  type: "EDIT_NOTE",
+                  payload: note,
+                });
+              }}
             />
           </span>
 

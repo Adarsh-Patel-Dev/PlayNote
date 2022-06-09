@@ -31,8 +31,11 @@ function NotesProvider({ children }) {
         return { ...state, addToNotes: action.payload };
       case "IS_EDIT":
         return { ...state, isEdit: action.payload };
+        
       case "EDIT_NOTE":
+        console.log("from context payload",action.payload)
         return { ...state, ...action.payload };
+        
 
       case "GET_ARCHIVE_NOTES":
         return { ...state, archiveNotes: action.payload };
@@ -61,13 +64,13 @@ function NotesProvider({ children }) {
       case "CLEAR_INPUT":
         return {
           ...state,
+          _id:null,
           title: "",
           textareaValue: "",
           priority: "",
           label: "",
           notesBgColor: "#ffffff",
         };
-
       default:
         return state;
     }
@@ -100,6 +103,7 @@ function NotesProvider({ children }) {
     addToNotes: [],
     archiveNotes: [],
     trashNotes: [],
+    _id:'',
     title: "",
     priority: "",
     label: "",
@@ -108,6 +112,7 @@ function NotesProvider({ children }) {
     noteModal: false,
     noteCreatedDate: "",
     isEdit: false,
+    editNote:{}
   });
 
   const {
@@ -172,7 +177,7 @@ function NotesProvider({ children }) {
   async function editNote(e){
     e.preventDefault();
     const note = {
-      _id,
+      // _id,
       title,
       priority,
       label,
@@ -181,13 +186,15 @@ function NotesProvider({ children }) {
       noteCreatedDate,
     };
 
-      console.log("from edit")
+    console.log("from edit",note)
+    console.log("from edit",noteState._id)
+      
       try{
           const response = await axios({
               method: "POST",
-              url: `/api/notes/${note._id}`,
-              headers: { authorization: localStorage.getItem("token") },
+              url: `/api/notes/${noteState._id}`,
               data: { note},
+              headers: { authorization: localStorage.getItem("token") },
           })
           if( true ){
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });

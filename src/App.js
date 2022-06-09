@@ -13,6 +13,7 @@ function App() {
      
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/filter" element={<FilterModal />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/archive" element={<ArchivePage />} />
         <Route path="/trash" element={<TrashPage />} />

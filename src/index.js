@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { makeServer } from "./server";
 import { NotesProvider } from "./Context/noteContext"
 import { ArchiveProvider } from "./Context/archiveContext"
+import { FilterProvider } from "./Context/FilterContext";
 
 // Call make Server
 makeServer();
@@ -14,7 +15,9 @@ ReactDOM.render(
     <Router>
     <NotesProvider>
     {/* <ArchiveProvider> */}
+    <FilterProvider>
       <App />
+    </FilterProvider>
     {/* </ArchiveProvider> */}
       </NotesProvider>
     </Router>
