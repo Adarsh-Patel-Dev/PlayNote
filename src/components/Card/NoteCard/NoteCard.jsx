@@ -22,7 +22,6 @@ function NoteCard({ note }) {
     isEdit,
   } = note;
   const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
-  console.log("from note card", note);
 
   return (
     <div

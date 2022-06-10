@@ -1,8 +1,6 @@
 // import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { useFilterContext } from "../../../Context/FilterContext";
-// import { Toast } from "../../components/Toast/Toast";
-// import "./modal.css";
 import "./filtermodal.css"
 
 function FilterModal() {
@@ -10,7 +8,6 @@ function FilterModal() {
   const { filterModal, label, priority , sortByLatest, sortByOldest } = filterState
   const { low, medium, high } = priority
   const { home, school, office } = label 
-  console.log("🚀 ~ file: FilterModal.jsx ~ line 11 ~ FilterModal ~ filterState", filterState)
   return (
     <div style={{ display: filterModal ? "none" : "block" }} className="modal--container">
       <div id="myModal" className=" filter-modal modal">

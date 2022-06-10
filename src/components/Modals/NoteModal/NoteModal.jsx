@@ -7,13 +7,8 @@ import "./modal.css";
 function NoteModal() {
   const [ColorModal, setColorModal] = useState(false);
 
- 
-
   const { noteState, noteDispatch, title, priority, textareaValue, label, addNote, editNote, notesBgColor, noteModal, isEdit } = useNoteContext();
 
-//  console.log("is editttttttttt", noteState)
- console.log("is editttttttttt", noteState.title)
- console.log("is textarea", textareaValue)
 
   return (
     <div

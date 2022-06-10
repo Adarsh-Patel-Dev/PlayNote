@@ -1,5 +1,6 @@
 import React from "react";
 import "./landingpage.css";
+import { NavLink } from "react-router-dom"
 
 function LandingPage() {
   return (
@@ -14,7 +15,9 @@ function LandingPage() {
             Manage your daily tasks and workflow in a modern way and boost your
             efficiency without any efforts.
           </div>
-          <button className="main-container-btn">Join Now</button>
+         <NavLink to ="/home">
+         <button className="main-container-btn">Join Now</button>
+         </NavLink>  
           <p className="main-container-login-msg">Already Have an Account?</p>
         </div>
         <div className="main-container-img">
