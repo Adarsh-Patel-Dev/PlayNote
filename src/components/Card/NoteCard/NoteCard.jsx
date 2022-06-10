@@ -3,7 +3,6 @@ import {
   MdLabelOutline,
   MdOutlineModeEdit,
   MdOutlineDelete,
-  MdFilterList,
   MdOutlineColorLens,
   MdOutlineArchive,
 } from "react-icons/md";
@@ -12,64 +11,66 @@ import "./note-card.css";
 import { useNoteContext } from "../../../Context/noteContext";
 
 function NoteCard({ note }) {
-  const {  title, description, label, priority, backgroundColor, dateAndTime } = note;
-  const { notesDispatch } = useNoteContext();
-
-  const newDate = new Date(dateAndTime);
-  const date = newDate.getDate() + "/" + (newDate.getMonth()+1) + newDate.getFullYear();
-  const time = newDate.getHours + ":" + newDate.getMinutes() + ":" + newDate.getSeconds();
-  const notesDateAndTime = date + "at" + time;
-
+  const {
+    _id,
+    title,
+    textareaValue,
+    label,
+    priority,
+    notesBgColor,
+    noteCreatedDate,
+    isEdit,
+  } = note;
+  const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
+  console.log("from note card", note);
 
   return (
-    <div className="note-card flex-col-center">
+    <div
+      className="note-card flex-col-center"
+      style={{ backgroundColor: notesBgColor }}
+    >
       <div className="note-card-header flex-row-center">
-        <h3 className="note-card-title">Title of note</h3>
+        <h3 className="note-card-title">{title}</h3>
         <span className="note-card-pinned">
           <BsPinAngle />
         </span>
       </div>
 
-      <div className="note-card-body">
-        In web applications, all the data you show on the page should reside
-        somewhere, for example, cache, database, storage account, etc.{" "}
-      </div>
+      <div
+        dangerouslySetInnerHTML={{ __html: textareaValue }}
+        className="note-card-body"
+      ></div>
+
       <div className="card-label-priority">
-        <span className="note-card-label">{label}</span>
-        <span className="note-card-priority">{priority}</span>
+        <div className="note-card-label">
+          <MdLabelOutline />
+          {label}
+        </div>
+        <span className="note-card-label">{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
-        <p className="note-card-created">created on {notesDateAndTime}</p>
+        <p className="note-card-created">created on {noteCreatedDate}</p>
         <div className="note-card-footer-icons flex-row-center">
-          <span>
+          <span className="note-card-footer-icon">
             <MdOutlineModeEdit
-             onClick={()=>{
-               notesDispatch({
-                 type:"EDIT",
-                 payload:{
-                   title:title,
-                   description:description,
-                   label:label,
-                   priority:priority,
-                   isModalOpen:true,
-                  //  noteId:
-                   backgroundColor:backgroundColor,
-                 }
-               })
-             }}
-             />
+              onClick={() => {
+                noteDispatch({ type: "IS_EDIT", payload: true });
+                noteDispatch({ type: "NOTE_MODAL", payload: true });
+                noteDispatch({
+                  type: "EDIT_NOTE",
+                  payload: note,
+                });
+              }}
+            />
           </span>
-          {/* <span>
-            <MdOutlineColorLens />
+
+          <span className="note-card-footer-icon">
+            <MdOutlineArchive
+              onClick={() => adddToArchive(note, noteDispatch)}
+            />
           </span>
-          <span>
-            <MdLabelOutline />
-          </span> */}
-          <span>
-            <MdOutlineArchive />
-          </span>
-          <span>
-            <MdOutlineDelete />
+          <span className="note-card-footer-icon">
+            <MdOutlineDelete onClick={() => adddToTrash(note, noteDispatch)} />
           </span>
         </div>
       </div>

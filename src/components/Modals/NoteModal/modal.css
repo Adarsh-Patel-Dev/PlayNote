@@ -30,7 +30,7 @@
   border-radius: 5px;
   background-color: white;
   color: black;
-  width: 60%;
+  width: 20rem;
   padding: 1rem;
   position: absolute;
   top: 50%;
@@ -61,8 +61,9 @@
   .label {
     margin-bottom: -8px;
     padding-top: 0.5rem;
-  }
-  
+    color: black;
+    font-size: 14px;
+}
   .close {
     cursor: pointer;
     position: absolute;
@@ -133,5 +134,34 @@
   .modal-title {
     color: #5348C7;
     font-size: 1.5rem;
+  }
+  
+  input[type="color"] {
+    /* visibility: hidden; */
+    cursor: pointer;
+    border: none;
+  }
+
+  .color-pallete{
+      position: relative;
+      bottom: 18px;
+      left: 8.5rem;
+  }
+
+  .create-color{
+    background-color: aqua;
+  }
+
+  .submit-btn{
+      border: transparent;
+      font-weight: 600;
+      padding: 0.5rem;
+      position: absolute;
+      bottom: 15px;
+      right: -1px;
+      font-size: 1rem;
+      background: transparent;
+      color: #5348C7;
+      font-family: inherit;
   }
   

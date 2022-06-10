@@ -1,39 +1,54 @@
 import React from "react";
-import {
-  MdOutlineUnarchive,
-  MdOutlineDelete,
-  MdOutlineRestoreFromTrash,
-} from "react-icons/md";
+import { MdOutlineUnarchive, MdOutlineDelete,MdLabelOutline } from "react-icons/md";
 import { BsPinAngle } from "react-icons/bs";
+import { useNoteContext } from "../../../Context/noteContext";
+
 // import "./note-card.css";
 
-function ArchiveCard({note}) {
+function ArchiveCard({ note }) {
+  const {
+    _id,
+    title,
+    textareaValue,
+    label,
+    priority,
+    notesBgColor,
+    noteCreatedDate,
+  } = note;
+  const { noteDispatch, restoreFromArchive, deleteFromArchive } =
+    useNoteContext();
+
   return (
-    <div className="note-card flex-col-center">
+    <div
+      className="note-card flex-col-center"
+      style={{ backgroundColor: notesBgColor }}
+    >
       <div className="note-card-header flex-row-center">
-        <h3 className="note-card-title">Archive Card</h3>
+        <h3 className="note-card-title">{title}</h3>
         <span className="note-card-pinned">
           <BsPinAngle />
         </span>
       </div>
 
-      <div className="note-card-body">
-        In web applications, all the data you show on the page should reside
-        somewhere, for example, cache, database, storage account, etc.{" "}
-      </div>
+      <div dangerouslySetInnerHTML={{__html:textareaValue}}
+      className="note-card-body"></div>
       <div className="card-label-priority">
-        <span className="note-card-label">Label 2</span>
-        <span className="note-card-priority">priority</span>
+      <div className="note-card-label"><MdLabelOutline/>{label}</div>
+        <span className="note-card-label">{priority}</span>
       </div>
 
       <div className="note-card-footer flex-row-center">
-        <p className="note-card-created">created on 21may</p>
+        <p className="note-card-created">created on {noteCreatedDate}</p>
         <div className="note-card-footer-icons flex-row-center">
-          <span>
-            <MdOutlineUnarchive />
+          <span className="note-card-footer-icon">
+            <MdOutlineUnarchive
+              onClick={() => restoreFromArchive(_id, noteDispatch)}
+            />
           </span>
-          <span>
-            <MdOutlineDelete />
+          <span className="note-card-footer-icon">
+            <MdOutlineDelete
+              onClick={() => deleteFromArchive(_id, noteDispatch)}
+            />
           </span>
         </div>
       </div>

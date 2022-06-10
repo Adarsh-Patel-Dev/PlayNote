@@ -22,6 +22,15 @@ gap: 1rem;
     gap: 1.2rem;
 }
 
+.asidebar-list-items {
+    font-size: 1.2rem;
+    display: flex;
+    gap: 11px;
+    align-items: center;
+}
+
+
+
 .asidebar-btn {
     border: transparent;
     color: white;
