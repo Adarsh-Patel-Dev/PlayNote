@@ -14,7 +14,6 @@ function ArchivePage() {
       <div className="main-section">
         <Asidebar />
         <div className="main-content flex-col-center">
-          <Searchbar />
           <div className="notecard-conatiner flex-row-center">
             {archiveNotes.map((note) => (
               <ArchiveCard key={note._id} note={note} />

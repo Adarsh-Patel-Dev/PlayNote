@@ -16,6 +16,10 @@
   color: #ffde59;
 }
 
+a{
+  text-decoration: none;
+}
+
 .flex-col-center{
   display: flex;
   justify-content: center;

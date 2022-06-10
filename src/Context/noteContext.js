@@ -71,6 +71,9 @@ function NotesProvider({ children }) {
           label: "",
           notesBgColor: "#ffffff",
         };
+
+      case "SEARCH":
+        return {...state, searchValue:action.payload}  
       default:
         return state;
     }
@@ -112,7 +115,8 @@ function NotesProvider({ children }) {
     noteModal: false,
     noteCreatedDate: "",
     isEdit: false,
-    editNote:{}
+    editNote:{},
+    searchValue:"",
   });
 
   const {

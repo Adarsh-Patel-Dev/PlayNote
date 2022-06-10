@@ -1,6 +1,7 @@
 import React from "react";
 import {
   MdOutlineUnarchive,
+  MdLabelOutline,
   MdOutlineDelete,
   MdOutlineRestoreFromTrash,
 } from "react-icons/md";

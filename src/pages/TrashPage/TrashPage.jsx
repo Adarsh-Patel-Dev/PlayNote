@@ -14,7 +14,6 @@ function TrashPage() {
       <div className="main-section">
         <Asidebar />
         <div className="main-content flex-col-center">
-          <Searchbar />
           <div className="notecard-conatiner flex-row-center">
             {trashNotes.map((note) => (
               <TrashCard key={note._id} note={note} />

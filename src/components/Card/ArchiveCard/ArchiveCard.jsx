@@ -1,5 +1,5 @@
 import React from "react";
-import { MdOutlineUnarchive, MdOutlineDelete } from "react-icons/md";
+import { MdOutlineUnarchive, MdOutlineDelete,MdLabelOutline } from "react-icons/md";
 import { BsPinAngle } from "react-icons/bs";
 import { useNoteContext } from "../../../Context/noteContext";
 

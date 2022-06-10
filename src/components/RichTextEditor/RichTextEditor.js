@@ -22,8 +22,6 @@ function RichTextEditor({textAreaValue}) {
     <div>
        <ReactQuill
        modules={modules}
-      //  formats={formats}
-       theme="snow"
        required
        value={ textAreaValue || '' } 
        onChange={(event) => noteDispatch({
