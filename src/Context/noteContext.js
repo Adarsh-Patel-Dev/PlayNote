@@ -33,7 +33,6 @@ function NotesProvider({ children }) {
         return { ...state, isEdit: action.payload };
         
       case "EDIT_NOTE":
-        console.log("from context payload",action.payload)
         return { ...state, ...action.payload };
         
 
@@ -130,7 +129,6 @@ function NotesProvider({ children }) {
     isEdit,
   } = noteState;
 
-  console.log(addToNotes,"addtonotes");
 
   async function getNotesData() {
     try {
@@ -141,10 +139,8 @@ function NotesProvider({ children }) {
       });
       if (response.status === 200) {
         noteDispatch({ type: "GET_NOTES", payload: response.data.notes });
-        console.log(response.data.notes);
       }
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -171,10 +167,8 @@ function NotesProvider({ children }) {
         noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
         noteDispatch({ type: "CLEAR_INPUT" });
         noteDispatch({ type: "NOTE_MODAL", payload: false });
-        console.log(response.data.notes);
       }
     } catch (error) {
-      console.log(error);
     }
   }
 
@@ -190,8 +184,6 @@ function NotesProvider({ children }) {
       noteCreatedDate,
     };
 
-    console.log("from edit",note)
-    console.log("from edit",noteState._id)
       
       try{
           const response = await axios({
@@ -204,10 +196,8 @@ function NotesProvider({ children }) {
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
             noteDispatch({ type: "CLEAR_INPUT" });
             noteDispatch({ type: "NOTE_MODAL", payload: false });
-            console.log(response.data.notes);
           }
       } catch ( error ){
-          console.log(error)
       }
   }
 
@@ -222,15 +212,12 @@ function NotesProvider({ children }) {
         });
         if( true ){
             noteDispatch({ type:"GET_ARCHIVE_NOTES", payload: response.data.archives })
-            console.log(response.data.archives)
         }
     } catch(error){
-        console.log(error);
     }
 }
 
 async function adddToArchive (note,noteDispatch){
-    console.log("from archivee")
     try{
         const response = await axios({
             method:"POST",
@@ -241,11 +228,8 @@ async function adddToArchive (note,noteDispatch){
         if( response.status === 201 ){
             noteDispatch({ type:"ADD_TO_ARCHIVE", payload: response.data.archives})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
-            console.log("from archive ALLnotes",response.data.notes)
-            console.log("from archive",response.data.archives)
         }
     } catch(error){
-        console.log(error)
     }
 }
 
@@ -260,12 +244,9 @@ async function restoreFromArchive (_id, noteDispatch){
         if(response.status === 200 ){
             noteDispatch({ type:"RESTORE_FROM_ARCHIVE", payload: response.data.archives })
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
-            console.log("from archive",response.data.archives)
-            console.log("from archive ALLnotes",response.data.notes)
 
         }
     } catch(error){
-        console.log(error)
     }
 }
 
@@ -279,11 +260,9 @@ async function deleteFromArchive (_id, noteDispatch){
         })
         if(response.status === 200 ){
             noteDispatch({ type:"DELETE_FROM_ARCHIVE", payload: response.data.archives })
-            console.log("from archive",response.data.archives)
 
         }
     } catch(error){
-        console.log(error)
     }
 }
 
@@ -296,15 +275,12 @@ async function getTrashNotes(){
         })
         if( true ){
             noteDispatch({ type:"GET_TRASH_NOTES", payload: response.data.trash })
-            console.log(response.data.trash)
         }
     } catch(error){
-        console.log(error);
     }
 }
 
 async function adddToTrash (note,noteDispatch){
-    console.log("from trash function")
     try{
         const response = await axios({
             method:"POST",
@@ -314,11 +290,8 @@ async function adddToTrash (note,noteDispatch){
         if(response.status === 201 ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
-            console.log("from trash", response.data.trash)
-            console.log("from trash ALLNOTES", response.data.notes )
         }
     } catch(error){
-        console.log(error)
     }
 }
 
@@ -333,12 +306,9 @@ async function restoreFromTrash (_id,noteDispatch){
         if(true ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
-            console.log("from trash", response.data.trash)
-            console.log("from trash ALLNOTES", response.data.notes )
 
         }
     } catch(error){
-        console.log(error)
     }
 }
 
@@ -352,10 +322,8 @@ async function deleteFromTrash (_id, noteDispatch){
         })
         if(true ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
-            console.log("from trash", response.data.trash)
         }
     } catch(error){
-        console.log(error)
     }
 }
 
