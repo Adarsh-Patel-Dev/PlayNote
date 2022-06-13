@@ -14,27 +14,45 @@ import { NavLink, useLocation } from "react-router-dom";
 import { NoteModal } from "../Modals/NoteModal/NoteModal";
 function Asidebar() {
   const { noteDispatch } = useNoteContext();
+  
+  //styling activeNavLinks
+  const navListStyles = ({ isActive }) => {
+   return {
+     fontWeight: isActive ? "bold" : "normal",
+     textDecoration: isActive ? "underline" : "none",
+   }
+  }
+
 
   return (
     <div className="asidebar">
       <div className="asidebar-menu flex-col-center">
         <ul className="asidebar-list flex-col-center">
 
-          <NavLink to="/home">
+          <NavLink to="/home" 
+        //  style={navListStyles}
+         className={ ({isActive}) =>!isActive? "not-active":"is-active"}
+         >
             <li className="asidebar-list-items">
               <AiOutlineHome />
               <span>Home</span>
             </li>
           </NavLink>
 
-          <NavLink to="/archive">
+          <NavLink to="/archive"
+            // style={navListStyles}
+            className={ ({isActive}) =>!isActive? "not-active":"is-active"}
+            >
             <li className="asidebar-list-items">
               <MdOutlineArchive />
               <span>Archive</span>
             </li>
           </NavLink>
 
-          <NavLink to="/trash">
+          <NavLink to="/trash"
+          //  style={navListStyles}
+          className={ ({isActive}) =>!isActive? "not-active":"is-active"}
+           >
             <li className="asidebar-list-items">
               <MdOutlineDelete /> 
               <span>Trash</span>

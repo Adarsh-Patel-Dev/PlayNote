@@ -10,9 +10,8 @@
     padding: 2rem 0;
 }
 
-
 .asidebar-menu{
-gap: 1rem;
+gap: 4rem;
 }
 
 .asidebar-list {
@@ -23,12 +22,20 @@ gap: 1rem;
 }
 
 .asidebar-list-items {
+    font-weight: inherit;
     font-size: 1.2rem;
     display: flex;
     gap: 11px;
     align-items: center;
+    transition: 1s;
 }
 
+.asidebar-list-items:hover{
+    transition: 1s;
+    background-color: #897ff7;
+    color: white;
+    padding: 0rem 0.5rem;
+}
 
 
 .asidebar-btn {
@@ -37,6 +44,14 @@ gap: 1rem;
     font-size: 1rem;
     padding: 0.6rem;
     background: #5348C7;
+    transition: 1s;
+}
+
+.asidebar-btn:hover{
+    cursor: pointer;
+    background-color: #7165f9;
+    transform: scale(1.1);
+    transition: 1s;
 }
 
 .asidebar-user{
@@ -59,4 +74,31 @@ gap: 1rem;
     background-color: #5348C7;
     color: white;
  
+}
+
+/*
+other Approach for styling navlink:
+directly using "active" class
+*/
+
+/* .asidebar-list a.active{
+ text-decoration: underline;
+ font-weight: bold;
+} */
+
+/* using classNames*/
+
+.asidebar-list a.is-active{
+    width: 9rem;
+    font-weight: bold;
+    color:rgb(255, 255, 255);
+    background-color: #897ff7;
+    padding: 0.1rem 1rem;
+    
+}
+
+.asidebar-list a.not-active{
+    width: 9rem;
+    padding: 0.1rem 1rem;
+    
 }
