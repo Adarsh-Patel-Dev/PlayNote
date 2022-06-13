@@ -1,4 +1,5 @@
 import React from "react";
+import noteImg from "../../Assets/trash.svg";
 import { Asidebar } from "../../components/Asidebar/Asidebar";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Searchbar } from "../../components/Searchbar/Searchbar";
@@ -15,9 +16,18 @@ function TrashPage() {
         <Asidebar />
         <div className="main-content flex-col-center">
           <div className="notecard-conatiner flex-row-center">
-            {trashNotes.map((note) => (
-              <TrashCard key={note._id} note={note} />
-            ))}
+            {trashNotes.length ? (
+              trashNotes.map((note) => <TrashCard key={note._id} note={note} />)
+            ) : (
+              <div className="empty-notes-container flex-col-center">
+                <p className="empty-notes-heading">
+                  Your Trashed notes appear here
+                </p>
+                <div className="empty-notes-img">
+                  <img src={noteImg} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

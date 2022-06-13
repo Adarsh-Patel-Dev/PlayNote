@@ -196,6 +196,7 @@ function NotesProvider({ children }) {
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
             noteDispatch({ type: "CLEAR_INPUT" });
             noteDispatch({ type: "NOTE_MODAL", payload: false });
+            noteDispatch({ type: "IS_EDIT", payload: false });
           }
       } catch ( error ){
       }

@@ -22,6 +22,7 @@ function NoteModal() {
             onClick={() => {
               noteDispatch({ type: "NOTE_MODAL", payload: false });
               noteDispatch({ type: "CLEAR_INPUT" });
+              noteDispatch({ type: "IS_EDIT", payload: false });
             }}
             className="close"
           ></MdClose>

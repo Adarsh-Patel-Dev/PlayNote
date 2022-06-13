@@ -1,4 +1,5 @@
 import React from "react";
+import noteImg from "../../Assets/add_notes.svg";
 import { Asidebar } from "../../components/Asidebar/Asidebar";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { NoteCard } from "../../components/Card/NoteCard/NoteCard";
@@ -9,13 +10,14 @@ function HomePage() {
   const { noteState } = useNoteContext();
   const { addToNotes, searchValue } = noteState;
 
-  const searchResultNotes = addToNotes.filter(note=> note.title.includes(searchValue)
-  ||note.textareaValue.includes(searchValue)
-  ||note.priority.includes(searchValue)
-  ||note.label.includes(searchValue)
-  )
-  
-  
+  const searchResultNotes = addToNotes.filter(
+    (note) =>
+      note.title.includes(searchValue) ||
+      note.textareaValue.includes(searchValue) ||
+      note.priority.includes(searchValue) ||
+      note.label.includes(searchValue)
+  );
+
   return (
     <div>
       <Navbar />
@@ -24,13 +26,26 @@ function HomePage() {
         <div className="main-content flex-col-center">
           <Searchbar />
           <div className="notecard-conatiner flex-row-center">
-          {
-            searchValue.length > 0 ? searchResultNotes.map((note) => (
-              <NoteCard key={note._id} note={note} />
-            )) : addToNotes.map((note) => (
-              <NoteCard key={note._id} note={note} />
-            ))
-          }
+            {addToNotes.length ? (
+              searchValue.length > 0 ? (
+                searchResultNotes.map((note) => (
+                  <NoteCard key={note._id} note={note} />
+                ))
+              ) : (
+                addToNotes.map((note) => (
+                  <NoteCard key={note._id} note={note} />
+                ))
+              )
+            ) : (
+              <div className="empty-notes-container flex-col-center">
+                <p className="empty-notes-heading">
+                  Your Notes will appear here.
+                </p>
+                <div className="empty-notes-img">
+                  <img src={noteImg} />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
