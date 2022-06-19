@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { MdClose, MdOutlineColorLens, MdLabelOutline } from "react-icons/md";
+import {
+  MdClose,
+  MdOutlineColorLens,
+  MdLabelOutline,
+  MdAddCircleOutline,
+} from "react-icons/md";
 import { useNoteContext } from "../../../Context/noteContext";
 import { RichTextEditor } from "../../RichTextEditor/RichTextEditor";
 import "./modal.css";
@@ -50,94 +55,113 @@ function NoteModal() {
             ></MdClose>
 
             <div className="modal-body">
-            <div className="flex-col-center gap-1rem-start">
-
-              <p className="modal-title">Title</p>
-              <input
-                placeholder="enter title of note"
-                value={noteState.title}
-                required
-                onChange={(e) =>
-                  noteDispatch({ type: "TITLE", payload: e.target.value })
-                }
-                className="input"
-              />
-            </div>
-
-                <div className="flex-col-center gap-1rem-start">
-
-              <p className="modal-title">Label</p>
-              <div className="flex-row-center flex-start">
-                <label htmlFor="label" className="label-input">
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="add label"
-                    required
-                    id="label"
-                    value={label}
-                    onChange={(e) => {
-                      e.preventDefault();
-                      noteDispatch({ type: "LABEL", payload: e.target.value });
-                    }}
-                  />
-                </label>
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Title</p>
+                <input
+                  placeholder="enter title of note"
+                  value={noteState.title}
+                  required
+                  onChange={(e) =>
+                    noteDispatch({ type: "TITLE", payload: e.target.value })
+                  }
+                  className="input"
+                />
               </div>
-                </div>
-
-                    <div className="flex-col-center gap-1rem-start">
-
-              <p className="modal-title">Priority</p>
-              <div className="flex-row-center flex-start">
-                <label key="low" htmlFor="low" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="low"
-                    checked={priority === "low"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "low" })
-                    }
-                  />
-                  <p className="label">low</p>
-                </label>
-                <label key="medium" htmlFor="medium" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="medium"
-                    checked={priority === "medium"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "medium" })
-                    }
-                  />
-                  <p className="label">medium</p>
-                </label>
-                <label key="high" htmlFor="high" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="high"
-                    checked={priority === "high"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "high" })
-                    }
-                  />
-                  <p className="label">high</p>
-                </label>
-              </div>
-                    </div>
 
               <p className="modal-title">Description</p>
 
               <div>
                 <RichTextEditor textAreaValue={textareaValue} />
+              </div>
+
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Label</p>
+                <div className="flex-row-center flex-start">
+                  <label htmlFor="label" className="label-input">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="add label"
+                      id="label"
+                      value={label}
+                      onChange={(e) => {
+                        e.preventDefault();
+                        noteDispatch({
+                          type: "LABEL",
+                          payload: e.target.value,
+                        });
+                      }}
+                    />
+                  </label>
+                  <span
+                    className="add-label"
+                    onClick={() => {
+                      {
+                        label &&
+                          noteDispatch({ type: "LABEL_ARRAY", payload: label });
+                        noteDispatch({
+                          type: "LABEL",
+                          payload: "",
+                        });
+                      }
+                    }}
+                    type="button"
+                  >
+                    <MdAddCircleOutline />
+                  </span>
+                  {labelArray.length > 0 &&
+                    labelArray.map((label) => (
+                      <div className="note-card-label">{label}</div>
+                    ))}
+                </div>
+              </div>
+
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Priority</p>
+                <div className="flex-row-center flex-start">
+                  <label key="low" htmlFor="low" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      className=""
+                      id="low"
+                      checked={priority === "low"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "low" })
+                      }
+                    />
+                    <p className="label">low</p>
+                  </label>
+                  <label key="medium" htmlFor="medium" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      className=""
+                      id="medium"
+                      checked={priority === "medium"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "medium" })
+                      }
+                    />
+                    <p className="label">medium</p>
+                  </label>
+                  <label key="high" htmlFor="high" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      className=""
+                      id="high"
+                      checked={priority === "high"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "high" })
+                      }
+                    />
+                    <p className="label">high</p>
+                  </label>
+                </div>
               </div>
 
               <span className="color-pallete">

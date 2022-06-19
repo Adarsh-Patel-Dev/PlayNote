@@ -11,7 +11,6 @@
 
   .flex-start{
       gap:1.5rem;
-      flex-direction: row-reverse;
       align-items: flex-start;
       justify-content: flex-end;
   }
@@ -145,7 +144,7 @@
     z-index: 1;
     position: relative;
     bottom: 18px;
-    left: 8.5rem;
+    left: 18.5rem;
 }
 
   .create-color{
@@ -164,6 +163,14 @@
       color: #5348C7;
       font-family: inherit;
   }
+
+  .add-label {
+    position: absolute;
+    color: #5348C7;
+    font-size: 1.2rem;
+    cursor: pointer;
+    right: 14.7rem;
+}
   
   .color-picker-icon {
     cursor: pointer;

@@ -19,13 +19,25 @@
   height: auto;
 }
 .note-card-label {
+  border: 2px solid gray;
   line-height: 16px;
-  border-radius: 5px;
-  font-size: 8px;
+  border-radius: 13px;
+  font-size: 11px;
   font-weight: 700;
   padding: 2px 8px;
-  color: white;
-  background-color: rgb(105, 105, 105);
+  color: gray;
+}
+
+.note-card-priority {
+  position: relative;
+  border: 2px solid gray;
+  line-height: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  color: gray;
+  top: -6.3rem;
+  right: -9rem;
 }
 
 .note-card-created {

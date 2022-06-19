@@ -76,7 +76,7 @@ const AuthProvider = ({ children }) => {
     try {
         if(encodedToken){
             console.log("ALready loggedIN")
-            Toast({ type: "info", msg: `Hey ${response.data.createdUser.someUserAttribute1}, you're already Logged IN 😎`  });            
+            Toast({ type: "info", msg: `You're already Logged IN 😎`  });            
         }
       const response = await axios({
         method: "POST",

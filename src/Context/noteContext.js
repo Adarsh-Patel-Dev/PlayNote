@@ -7,10 +7,6 @@ import { v4 as uuid } from "uuid";
 const NoteContext = createContext();
 const useNoteContext = () => useContext(NoteContext);
 
-// const token =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMzA4ZDA3NC1iY2RkLTRjMTEtYmVkOS0wMzhhZWRhZmM0ZjciLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.yj4z6vXmZHq66VSH7-pQ9JoPjZR6WJcVgDKejj3vJfk";
-
-// localStorage.setItem("token", token);
 
 function NotesProvider({ children }) {
   function noteReducer(state, action) {

@@ -16,12 +16,29 @@ function NoteCard({ note }) {
     title,
     textareaValue,
     label,
+    labelArray,
     priority,
     notesBgColor,
     noteCreatedDate,
     isEdit,
   } = note;
   const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
+
+  function priorityColor(priority){
+    switch (priority) {
+      case "high":
+        return "red";
+
+      case "medium":
+        return "orange"
+
+      case "low":
+        return "green"
+    
+      default:
+        break;
+    }
+  }
 
   return (
     <div
@@ -41,11 +58,18 @@ function NoteCard({ note }) {
       ></div>
 
       <div className="card-label-priority">
-        <div className="note-card-label">
+            <div className="flex-row-center gap-1rem-start ">
+        {
+          labelArray.map(label=>(
+            <div className="note-card-label">
           <MdLabelOutline />
           {label}
         </div>
-        <span className="note-card-label"><MdOutlinePriorityHigh/>{priority}</span>
+        ))}
+        </div>
+        <span 
+        style={{color:priorityColor(priority), borderColor:priorityColor(priority)}}
+        className="note-card-priority"><MdOutlinePriorityHigh/>{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>
