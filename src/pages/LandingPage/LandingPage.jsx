@@ -1,5 +1,6 @@
 import React from "react";
 import "./landingpage.css";
+import HeroImg from "../../Assets/heroImage.svg"
 import { NavLink } from "react-router-dom"
 
 function LandingPage() {
@@ -16,12 +17,14 @@ function LandingPage() {
             efficiency without any efforts.
           </div>
          <NavLink to ="/home">
-         <button className="main-container-btn">Join Now</button>
+         <button className="main-container-btn">Get Started</button>
          </NavLink>  
+         <NavLink to="/login">
           <p className="main-container-login-msg">Already Have an Account?</p>
+         </NavLink>
         </div>
         <div className="main-container-img">
-        <img src="https://i.pinimg.com/originals/dc/bf/01/dcbf010c2319a0820e5e70acd061f553.png" />
+        <img src={HeroImg} />
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@ import {
   MdLabelOutline,
   MdOutlineModeEdit,
   MdOutlineDelete,
-  MdOutlineColorLens,
   MdOutlineArchive,
+  MdOutlinePriorityHigh,
 } from "react-icons/md";
 import { BsPinAngle } from "react-icons/bs";
 import "./note-card.css";
@@ -45,7 +45,7 @@ function NoteCard({ note }) {
           <MdLabelOutline />
           {label}
         </div>
-        <span className="note-card-label">{priority}</span>
+        <span className="note-card-label"><MdOutlinePriorityHigh/>{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>

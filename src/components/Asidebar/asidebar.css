@@ -76,6 +76,19 @@ gap: 4rem;
  
 }
 
+.asidebar-user-logout{
+    cursor: pointer;
+}
+
+.asidebar-user-logout:hover{
+    background-color: #897ff7;
+    cursor: pointer;
+    transform: scale(1.1);
+    color: #5348C7;
+}
+
+
+
 /*
 other Approach for styling navlink:
 directly using "active" class

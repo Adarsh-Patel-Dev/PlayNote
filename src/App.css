@@ -16,8 +16,9 @@
   color: #ffde59;
 }
 
-a{
+a, a:hover, a:focus, a:active{
   text-decoration: none;
+  color: inherit;
 }
 
 .flex-col-center{
@@ -32,6 +33,12 @@ a{
   justify-content: center;
   align-items: center;
   flex-direction: row;
+}
+
+.gap-1rem-start {
+    gap: 10px;
+  display: flex;
+  align-items: flex-start;
 }
 
 li{

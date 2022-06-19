@@ -1,5 +1,5 @@
-import { RepeatOneSharp } from "@mui/icons-material";
 import axios from "axios";
+import { Toast } from "../components/Toast/Toast"
 import { useEffect, createContext, useContext } from "react";
 import { useReducer } from "react";
 import { v4 as uuid } from "uuid";
@@ -7,10 +7,10 @@ import { v4 as uuid } from "uuid";
 const NoteContext = createContext();
 const useNoteContext = () => useContext(NoteContext);
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMzA4ZDA3NC1iY2RkLTRjMTEtYmVkOS0wMzhhZWRhZmM0ZjciLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.yj4z6vXmZHq66VSH7-pQ9JoPjZR6WJcVgDKejj3vJfk";
+// const token =
+//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIwMzA4ZDA3NC1iY2RkLTRjMTEtYmVkOS0wMzhhZWRhZmM0ZjciLCJlbWFpbCI6ImFkYXJzaGJhbGlrYUBnbWFpbC5jb20ifQ.yj4z6vXmZHq66VSH7-pQ9JoPjZR6WJcVgDKejj3vJfk";
 
-localStorage.setItem("token", token);
+// localStorage.setItem("token", token);
 
 function NotesProvider({ children }) {
   function noteReducer(state, action) {
@@ -25,6 +25,12 @@ function NotesProvider({ children }) {
         return { ...state, priority: action.payload };
       case "LABEL":
         return { ...state, label: action.payload };
+
+        case "LABEL_INPUT":
+          return { ...state, labelInput: action.payload };
+        case "LABEL_ARRAY":
+          return { ...state, labelArray: [...state.labelArray,action.payload] };  
+
       case "TEXTAREA":
         return { ...state, textareaValue: action.payload };
       case "ADD_TO_NOTES":
@@ -109,6 +115,10 @@ function NotesProvider({ children }) {
     title: "",
     priority: "",
     label: "",
+
+    labelInput:"",
+    labelArray:"",
+
     textareaValue: "",
     notesBgColor: "#ffffff",
     noteModal: false,
@@ -123,6 +133,8 @@ function NotesProvider({ children }) {
     title,
     priority,
     label,
+    labelInput,
+    labelArray,
     textareaValue,
     notesBgColor,
     noteModal,
@@ -151,11 +163,12 @@ function NotesProvider({ children }) {
       title,
       priority,
       label,
+      labelArray,
       textareaValue,
       notesBgColor,
       noteCreatedDate,
     };
-
+  console.log("from context",labelArray)
     try {
       const response = await axios({
         method: "POST",
@@ -167,8 +180,10 @@ function NotesProvider({ children }) {
         noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes });
         noteDispatch({ type: "CLEAR_INPUT" });
         noteDispatch({ type: "NOTE_MODAL", payload: false });
+        Toast({ type: "success", msg: "Note added successfully" });
       }
     } catch (error) {
+      Toast({ type: "error", msg: error });
     }
   }
 
@@ -197,8 +212,10 @@ function NotesProvider({ children }) {
             noteDispatch({ type: "CLEAR_INPUT" });
             noteDispatch({ type: "NOTE_MODAL", payload: false });
             noteDispatch({ type: "IS_EDIT", payload: false });
+            Toast({ type: "info", msg: "Note edited successfully" });
           }
       } catch ( error ){
+      Toast({ type: "error", msg: error });
       }
   }
 
@@ -215,6 +232,7 @@ function NotesProvider({ children }) {
             noteDispatch({ type:"GET_ARCHIVE_NOTES", payload: response.data.archives })
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -229,8 +247,11 @@ async function adddToArchive (note,noteDispatch){
         if( response.status === 201 ){
             noteDispatch({ type:"ADD_TO_ARCHIVE", payload: response.data.archives})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+            Toast({ type: "info", msg: "Note archived" });
+
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -245,9 +266,12 @@ async function restoreFromArchive (_id, noteDispatch){
         if(response.status === 200 ){
             noteDispatch({ type:"RESTORE_FROM_ARCHIVE", payload: response.data.archives })
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+        Toast({ type: "success", msg: "Note unarchived" });
+
 
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -261,9 +285,10 @@ async function deleteFromArchive (_id, noteDispatch){
         })
         if(response.status === 200 ){
             noteDispatch({ type:"DELETE_FROM_ARCHIVE", payload: response.data.archives })
-
+        Toast({ type: "warning", msg: "Note deleted" });
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -278,6 +303,7 @@ async function getTrashNotes(){
             noteDispatch({ type:"GET_TRASH_NOTES", payload: response.data.trash })
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -291,8 +317,11 @@ async function adddToTrash (note,noteDispatch){
         if(response.status === 201 ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+        Toast({ type: "info", msg: "Note trashed" });
+
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -307,9 +336,11 @@ async function restoreFromTrash (_id,noteDispatch){
         if(true ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
             noteDispatch({ type: "ADD_TO_NOTES", payload: response.data.notes})
+        Toast({ type: "success", msg: "Note restored" });
 
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
@@ -323,8 +354,11 @@ async function deleteFromTrash (_id, noteDispatch){
         })
         if(true ){
             noteDispatch({ type:"ADD_TO_TRASH", payload: response.data.trash})
+        Toast({ type: "warning", msg: "Note deleted from trash" });
+
         }
     } catch(error){
+      Toast({ type: "error", msg: error });
     }
 }
 
