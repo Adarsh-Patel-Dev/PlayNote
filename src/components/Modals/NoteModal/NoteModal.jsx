@@ -26,11 +26,6 @@ function NoteModal() {
     isEdit,
   } = useNoteContext();
   const { labelInput, labelArray } = noteState;
-  function addLabelsIntoArray(labels) {
-    noteDispatch({ type: "LABEL_ARRAY", payload: labels });
-  }
-  console.log("labels", labelInput);
-  console.log("label_array", labelArray);
 
   return (
     <div

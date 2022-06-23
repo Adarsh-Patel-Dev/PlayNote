@@ -2,9 +2,11 @@
 
 
 import { createContext, useContext, useReducer } from "react";
+import { useNoteContext } from "./noteContext";
 
 const FilterContext = createContext();
 const useFilterContext = () => useContext(FilterContext);
+// const { addToNotes }= useNoteContext();
 
 const filterReducer = (state, action) => {
   switch (action.type) {
@@ -71,6 +73,8 @@ const filterReducer = (state, action) => {
 
 
 const FilterProvider = ({ children }) => {
+const { noteState:{addToNotes} }= useNoteContext();
+
   const [filterState, filterDispatch] = useReducer(filterReducer, {
     filterModal: false,
     label: {
@@ -78,14 +82,72 @@ const FilterProvider = ({ children }) => {
       school: false,
       office: false,
     },
-    priority: {
-      low: false,
-      medium: false,
-      high: false,
-    },
+    priority: 3,
     sortByLatest: false,
     sortByOldest: false,
   });
+
+ 
+
+  function sortByDate( sortByLatest, notesArray){
+    // switch (sortby) {
+    //     case "LATEST":
+    //         return [...notesArray].sort((a,b) => new Date(b.date) - new Date(a.date))
+        
+    //     case "OLDEST":
+    //         return [...notesArray].sort((a,b) => new Date(a.date) - new Date(b.date))
+            
+    //     default:
+    //         return notesArray;
+    // }
+
+    if(sortByLatest){
+      return [...notesArray].sort((a,b) => new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate))
+    } else{
+      return [...notesArray].sort((a,b) => new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate))
+    }
+}
+
+console.log(sortByDate(filterState.sortByLatest,addToNotes )
+)
+
+// function sortByPriority( sortby, notesArray ){
+//     switch (sortby) {
+//         case "HIGH_TO_LOW":
+//             return [...notesArray].sort((a,b) => a.priority - b.priority )
+    
+//         case "LOW_TO_HIGH":
+//             return [...notesArray].sort((a,b) =>b.priority - a.priority )
+      
+//         default:
+//             return notesArray;
+//     }
+// }
+
+function filterByPriority( {priority}, notesArray){
+    return notesArray.filter(note=>note.priority === priority)
+}
+
+function filterByLabels( {labels}, notesArray ){
+    return notesArray.filter(note=>note.labels.some(label =>labels.includes(label)) )
+}
+
+
+    const applyFilters = (filterState, ...args) => notes => {
+        return args.reduce((acc,curr) => {
+            return curr(filterState, acc)
+        }, notes)
+    }
+
+     const getNotes = (filterState, addToNotes) => applyFilters(
+        filterState,
+        sortByDate,
+        // sortByPriority,
+        // filterByLabels,
+        // filterByPriority
+    )(addToNotes)
+  
+    console.log("filter",getNotes(filterState, addToNotes))
 
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>

@@ -9,11 +9,12 @@
   transform: translate(-50%, -50%);
 }
 
-  .flex-start{
-      gap:1.5rem;
-      align-items: flex-start;
-      justify-content: flex-end;
-  }
+.flex-start {
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+  align-items: baseline;
+  justify-content: flex-start;
+}
  
   .flex-start li {
     display: flex;
@@ -59,7 +60,7 @@
   
   .label {
     color: black;
-    font-size: 14px;
+    font-size: 1rem;
 }
   .close {
     cursor: pointer;

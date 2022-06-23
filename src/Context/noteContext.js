@@ -79,27 +79,27 @@ function NotesProvider({ children }) {
         return state;
     }
   }
-  const newDate = new Date();
+  const noteCreatedDate = new Date().toLocaleString();
 
-  const date =
-    newDate.getDate() +
-    "/" +
-    (newDate.getMonth() + 1) +
-    "/" +
-    newDate.getFullYear();
+  // const date =
+  //   newDate.getDate() +
+  //   "/" +
+  //   (newDate.getMonth() + 1) +
+  //   "/" +
+  //   newDate.getFullYear();
 
-  const formattedMinutes =
-    newDate.getMinutes().length == 1
-      ? "0" + newDate.getMinutes()
-      : newDate.getMinutes();
+  // const formattedMinutes =
+  //   newDate.getMinutes().length == 1
+  //     ? "0" + newDate.getMinutes()
+  //     : newDate.getMinutes();
 
-  const formattedHours =
-    newDate.getHours().length == 1
-      ? "0" + newDate.getHours()
-      : newDate.getHours();
+  // const formattedHours =
+  //   newDate.getHours().length == 1
+  //     ? "0" + newDate.getHours()
+  //     : newDate.getHours();
 
-  const time = formattedHours + ":" + formattedMinutes;
-  const noteCreatedDate = date + " at " + time;
+  // const time = formattedHours + ":" + formattedMinutes;
+  // const noteCreatedDate = date + " at " + time;
 
   const [noteState, noteDispatch] = useReducer(noteReducer, {
     getNotes: [],
@@ -118,7 +118,7 @@ function NotesProvider({ children }) {
     textareaValue: "",
     notesBgColor: "#ffffff",
     noteModal: false,
-    noteCreatedDate: "",
+    // noteCreatedDate: newDate,
     isEdit: false,
     editNote:{},
     searchValue:"",
@@ -377,6 +377,7 @@ async function deleteFromTrash (_id, noteDispatch){
         noteState,
         priority,
         label,
+        labelArray,
         textareaValue,
         addNote,
         notesBgColor,

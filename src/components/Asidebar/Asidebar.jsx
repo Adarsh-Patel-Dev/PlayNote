@@ -17,7 +17,7 @@ import { Toast } from "../Toast/Toast";
 import { useAuthContext } from "../../Context/AuthContext";
 
 function Asidebar() {
-  const { noteDispatch } = useNoteContext();
+  const { noteDispatch, labelArray } = useNoteContext();
   const [logout, setLogout ] = useState(false);
   const { userName } = useAuthContext()
   //styling activeNavLinks
@@ -57,7 +57,7 @@ function Asidebar() {
             </li>
           </NavLink>
 
-          <NavLink to="/home" 
+          <NavLink to="/trash" 
         //  style={navListStyles}
          className={ ({isActive}) =>!isActive? "not-active":"is-active"}
          >
@@ -66,6 +66,15 @@ function Asidebar() {
               <span>Labels</span>
             </li>
           </NavLink>
+          {
+            labelArray.length>0 && labelArray.map((label)=>(
+              <li className="asidebar-list-items">
+              <MdLabelOutline />
+              <span>{label}</span>
+            </li>
+            ))
+          }
+
 
           <NavLink to="/archive"
             // style={navListStyles}
