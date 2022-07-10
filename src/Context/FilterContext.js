@@ -33,7 +33,7 @@ const filterReducer = (state, action) => {
     case "PRIORITY_HIGH":
       return {
         ...state,
-        priority: { ...state.priority, high: !state.priority.high },
+        priority: { ...state.priority, urgent: !state.priority.urgent },
       };
 
     case "SORT_BY_DATE":
@@ -59,11 +59,11 @@ const filterReducer = (state, action) => {
         priority: {
           low: false,
           medium: false,
-          high: false,
+          urgent: false,
         },
-        sortByDate: false,
+        sortByDate: null,
         sortByOldestDate:false,
-        sortByPriority: false,
+        sortByPriority: null,
         sortByLowPriority:false,
       };
 
@@ -90,25 +90,15 @@ const FilterProvider = ({ children }) => {
     priority: {
       low: false,
       medium: false,
-      high: false,
+      urgent: false,
     },
-    sortByLatestDate: false,
+    sortByDate: null,
         sortByOldestDate:false,
-        sortByHighPriority: false,
+        sortByPriority: null, 
         sortByLowPriority:false,
   });
 
   function sortByDate(sortByDate, notesArray) {
-    // switch (sortby) {
-    //     case "LATEST":
-    //         return [...notesArray].sort((a,b) => new Date(b.date) - new Date(a.date))
-
-    //     case "OLDEST":
-    //         return [...notesArray].sort((a,b) => new Date(a.date) - new Date(b.date))
-
-    //     default:
-    //         return notesArray;
-    // }
 
     if (sortByDate) {
       return [...notesArray].sort(

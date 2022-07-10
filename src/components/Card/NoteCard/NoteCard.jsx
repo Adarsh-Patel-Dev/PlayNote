@@ -27,7 +27,7 @@ function NoteCard({ note }) {
 
   function priorityColor(priority) {
     switch (priority) {
-      case "high":
+      case "urgent":
         return "red";
 
       case "medium":

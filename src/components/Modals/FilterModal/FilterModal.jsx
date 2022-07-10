@@ -14,7 +14,7 @@ function FilterModal() {
     sortByHighPriority,
     sortByLowPriority,
   } = filterState;
-  const { low, medium, high } = priority;
+  const { low, medium, urgent } = priority;
   const { home, school, office } = label;
   const [key, setKey] = useState(0);
   return (
@@ -103,7 +103,7 @@ function FilterModal() {
               <li>
                 <input
                   onChange={() => filterDispatch({ type: "PRIORITY_HIGH" })}
-                  checked={high}
+                  checked={urgent}
                   type="checkbox"
                   name="high"
                 />

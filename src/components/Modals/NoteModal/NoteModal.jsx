@@ -156,9 +156,9 @@ function NoteModal() {
                       value={3}
                       className=""
                       id="high"
-                      checked={priority === "high"}
+                      checked={priority === "urgent"}
                       onChange={() =>
-                        noteDispatch({ type: "PRIORITY", payload: "high" })
+                        noteDispatch({ type: "PRIORITY", payload: "urgent" })
                       }
                     />
                     <p className="label">high</p>

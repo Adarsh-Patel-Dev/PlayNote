@@ -19,11 +19,11 @@ function HomePage() {
     sortByDate,
     sortByPriority,
   } = filterState;
-  const { low, medium, high } = priority;
+  const { low, medium, urgent } = priority;
   const { home, school, office } = label;
   const { noteCreatedDate } = useNoteContext();
 
-  console.log(">......", priority)
+  console.log("allnotesArray", addToNotes)
 
   function filterByLabelsFun(array){
     const temp = [...array]
@@ -57,23 +57,23 @@ function HomePage() {
 
   function filterByPriorityFun(array){
     const temp = [...array]
-    if( low && medium && high ){
+    if( low && medium && urgent ){
      return temp
     }
     if( low && medium ){
-     return temp.filter(item=>item.priority !=="high")
+     return temp.filter(item=>item.priority !=="urgent")
    }
-   if( low && high ){
+   if( low && urgent ){
       return temp.filter(item=>item.priority !=="medium")
      }
-     if( medium && high ){
+     if( medium && urgent ){
       return temp.filter(item=>item.priority !=="low")
     }
      if( medium ){
       return temp.filter(item=>item.priority !=="medium")
     }
-     if( high ){
-      return temp.filter(item=>item.priority !=="high")
+     if( urgent ){
+      return temp.filter(item=>item.priority !=="urgent")
     }
      if( low ){
       return temp.filter(item=>item.priority !=="low")
@@ -101,11 +101,13 @@ function HomePage() {
   function sortByPriorityFun(array,sortByPriority){
     let temp = [...array]
     if(sortByPriority){
-      return temp.sort((a,b)=>b.priority-a.priority)
+      temp.sort((a,b)=> a.priority.toUpperCase() > b.priority.toUpperCase() ? 1 :-1)
     }
-    else{
-      return temp.sort((a,b)=>a.priority-b.priority)
+    if(!sortByPriority){
+      temp.sort((a,b)=> a.priority.toUpperCase() < b.priority.toUpperCase() ? 1 :-1)
     }
+    console.log("inside fun", temp)
+    return temp;
   }
 
   const sortedByPriority = sortByPriorityFun(sortedByDate,sortByPriority)
@@ -127,13 +129,13 @@ function HomePage() {
         <div className="main-content flex-col-center">
           <Searchbar />
           <div className="notecard-conatiner flex-row-center">
-            {sortedByPriority.length ? (
+            {searchResultNotes.length ? (
               searchValue.length > 0 ? (
                 searchResultNotes.map((note) => (
                   <NoteCard key={note._id} note={note} />
                 ))
               ) : (
-                sortedByPriority.map((note) => (
+                searchResultNotes.map((note) => (
                   <NoteCard key={note._id} note={note} />
                 ))
               )
