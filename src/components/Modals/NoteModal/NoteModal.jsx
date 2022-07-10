@@ -10,9 +10,8 @@ import { RichTextEditor } from "../../RichTextEditor/RichTextEditor";
 import "./modal.css";
 
 function NoteModal() {
-  const [ColorModal, setColorModal] = useState(false);
 
-  const {
+  let {
     noteState,
     noteDispatch,
     title,
@@ -25,7 +24,6 @@ function NoteModal() {
     noteModal,
     isEdit,
   } = useNoteContext();
-  const { labelInput, labelArray } = noteState;
 
   return (
     <div
@@ -72,42 +70,48 @@ function NoteModal() {
               <div className="flex-col-center gap-1rem-start">
                 <p className="modal-title">Label</p>
                 <div className="flex-row-center flex-start">
-                  <label htmlFor="label" className="label-input">
+                  <label key="low" htmlFor="low" className="label">
                     <input
-                      className="input"
-                      type="text"
-                      placeholder="add label"
-                      id="label"
-                      value={label}
-                      onChange={(e) => {
-                        e.preventDefault();
-                        noteDispatch({
-                          type: "LABEL",
-                          payload: e.target.value,
-                        });
-                      }}
-                    />
-                  </label>
-                  <span
-                    className="add-label"
-                    onClick={() => {
-                      {
-                        label &&
-                          noteDispatch({ type: "LABEL_ARRAY", payload: label });
-                        noteDispatch({
-                          type: "LABEL",
-                          payload: "",
-                        });
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="low"
+                      checked={label === "home"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "home" })
                       }
-                    }}
-                    type="button"
-                  >
-                    <MdAddCircleOutline />
-                  </span>
-                  {labelArray.length > 0 &&
-                    labelArray.map((label) => (
-                      <div className="note-card-label">{label}</div>
-                    ))}
+                    />
+                    <p className="label">Home</p>
+                  </label>
+                  <label key="medium" htmlFor="medium" className="label">
+                    <input
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="medium"
+                      checked={label === "office"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "office" })
+                      }
+                    />
+                    <p className="label">Office</p>
+                  </label>
+                  <label key="high" htmlFor="high" className="label">
+                    <input
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="high"
+                      checked={label === "school"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "school" })
+                      }
+                    />
+                    <p className="label">School</p>
+                  </label>
                 </div>
               </div>
 
@@ -119,6 +123,7 @@ function NoteModal() {
                       type="radio"
                       name="priority"
                       required
+                      value={1}
                       className=""
                       id="low"
                       checked={priority === "low"}
@@ -133,6 +138,7 @@ function NoteModal() {
                       type="radio"
                       name="priority"
                       required
+                      value={2}
                       className=""
                       id="medium"
                       checked={priority === "medium"}
@@ -147,6 +153,7 @@ function NoteModal() {
                       type="radio"
                       name="priority"
                       required
+                      value={3}
                       className=""
                       id="high"
                       checked={priority === "high"}

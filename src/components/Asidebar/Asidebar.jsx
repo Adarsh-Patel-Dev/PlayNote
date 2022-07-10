@@ -57,25 +57,6 @@ function Asidebar() {
             </li>
           </NavLink>
 
-          <NavLink to="/trash" 
-        //  style={navListStyles}
-         className={ ({isActive}) =>!isActive? "not-active":"is-active"}
-         >
-            <li className="asidebar-list-items">
-              <MdLabelOutline />
-              <span>Labels</span>
-            </li>
-          </NavLink>
-          {
-            labelArray.length>0 && labelArray.map((label)=>(
-              <li className="asidebar-list-items">
-              <MdLabelOutline />
-              <span>{label}</span>
-            </li>
-            ))
-          }
-
-
           <NavLink to="/archive"
             // style={navListStyles}
             className={ ({isActive}) =>!isActive? "not-active":"is-active"}

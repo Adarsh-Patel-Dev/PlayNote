@@ -1,6 +1,3 @@
-// ========TODO - to be implemented in future============
-
-
 import { createContext, useContext, useReducer } from "react";
 import { useNoteContext } from "./noteContext";
 
@@ -39,11 +36,17 @@ const filterReducer = (state, action) => {
         priority: { ...state.priority, high: !state.priority.high },
       };
 
-    case "SORT_BY_LATEST":
-      return { ...state, sortByLatest: action.payload };
+    case "SORT_BY_DATE":
+      return { ...state, sortByDate: action.payload };
 
     case "SORT_BY_OLDEST":
-      return { ...state, sortByOldest: action.payload };
+      return { ...state, sortByOldestDate: action.payload };
+    
+      case "SORT_BY_PRIORITY":
+      return { ...state, sortByPriority: action.payload };
+
+    case "SORT_BY_LOW_TO_HIGH_PRIORITY":
+      return { ...state, sortByLowPriority: action.payload };
 
     case "RESET_FILTER":
       return {
@@ -58,22 +61,24 @@ const filterReducer = (state, action) => {
           medium: false,
           high: false,
         },
-        sortByLatest: false,
-        sortByOldest: false,
+        sortByDate: false,
+        sortByOldestDate:false,
+        sortByPriority: false,
+        sortByLowPriority:false,
       };
 
     case "FILTER_MODAL":
-      return { ...state, filterModal: payload };
+      return { ...state, filterModal: action.payload };
 
     default:
       return state;
   }
 };
 
-
-
 const FilterProvider = ({ children }) => {
-const { noteState:{addToNotes} }= useNoteContext();
+  const {
+    noteState: { addToNotes },
+  } = useNoteContext();
 
   const [filterState, filterDispatch] = useReducer(filterReducer, {
     filterModal: false,
@@ -82,72 +87,83 @@ const { noteState:{addToNotes} }= useNoteContext();
       school: false,
       office: false,
     },
-    priority: 3,
-    sortByLatest: false,
-    sortByOldest: false,
+    priority: {
+      low: false,
+      medium: false,
+      high: false,
+    },
+    sortByLatestDate: false,
+        sortByOldestDate:false,
+        sortByHighPriority: false,
+        sortByLowPriority:false,
   });
 
- 
-
-  function sortByDate( sortByLatest, notesArray){
+  function sortByDate(sortByDate, notesArray) {
     // switch (sortby) {
     //     case "LATEST":
     //         return [...notesArray].sort((a,b) => new Date(b.date) - new Date(a.date))
-        
+
     //     case "OLDEST":
     //         return [...notesArray].sort((a,b) => new Date(a.date) - new Date(b.date))
-            
+
     //     default:
     //         return notesArray;
     // }
 
-    if(sortByLatest){
-      return [...notesArray].sort((a,b) => new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate))
-    } else{
-      return [...notesArray].sort((a,b) => new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate))
+    if (sortByDate) {
+      return [...notesArray].sort(
+        (a, b) => new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate)
+      );
+    } else {
+      return [...notesArray].sort(
+        (a, b) => new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate)
+      );
     }
-}
+  }
 
-console.log(sortByDate(filterState.sortByLatest,addToNotes )
-)
+  console.log(sortByDate(filterState.sortByDate, addToNotes));
 
-// function sortByPriority( sortby, notesArray ){
-//     switch (sortby) {
-//         case "HIGH_TO_LOW":
-//             return [...notesArray].sort((a,b) => a.priority - b.priority )
-    
-//         case "LOW_TO_HIGH":
-//             return [...notesArray].sort((a,b) =>b.priority - a.priority )
-      
-//         default:
-//             return notesArray;
-//     }
-// }
+  // function sortByPriority( sortby, notesArray ){
+  //     switch (sortby) {
+  //         case "HIGH_TO_LOW":
+  //             return [...notesArray].sort((a,b) => a.priority - b.priority )
 
-function filterByPriority( {priority}, notesArray){
-    return notesArray.filter(note=>note.priority === priority)
-}
+  //         case "LOW_TO_HIGH":
+  //             return [...notesArray].sort((a,b) =>b.priority - a.priority )
 
-function filterByLabels( {labels}, notesArray ){
-    return notesArray.filter(note=>note.labels.some(label =>labels.includes(label)) )
-}
+  //         default:
+  //             return notesArray;
+  //     }
+  // }
 
+  function filterByPriority({ priority }, notesArray) {
+    return notesArray.filter((note) => note.priority === priority);
+  }
 
-    const applyFilters = (filterState, ...args) => notes => {
-        return args.reduce((acc,curr) => {
-            return curr(filterState, acc)
-        }, notes)
-    }
+  function filterByLabels({ labels }, notesArray) {
+    return notesArray.filter((note) =>
+      note.labels.some((label) => labels.includes(label))
+    );
+  }
 
-     const getNotes = (filterState, addToNotes) => applyFilters(
-        filterState,
-        sortByDate,
-        // sortByPriority,
-        // filterByLabels,
-        // filterByPriority
-    )(addToNotes)
-  
-    console.log("filter",getNotes(filterState, addToNotes))
+  const applyFilters =
+    (filterState, ...args) =>
+    (notes) => {
+      return args.reduce((acc, curr) => {
+        return curr(filterState, acc);
+      }, notes);
+    };
+
+  const getNotes = (filterState, addToNotes) =>
+    applyFilters(
+      filterState,
+      sortByDate
+      // sortByPriority,
+      // filterByLabels,
+      // filterByPriority
+    )(addToNotes);
+
+  console.log("filter", getNotes(filterState, addToNotes));
 
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>

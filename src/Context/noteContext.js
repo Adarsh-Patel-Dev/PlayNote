@@ -22,11 +22,6 @@ function NotesProvider({ children }) {
       case "LABEL":
         return { ...state, label: action.payload };
 
-        case "LABEL_INPUT":
-          return { ...state, labelInput: action.payload };
-        case "LABEL_ARRAY":
-          return { ...state, labelArray: [...state.labelArray,action.payload] };  
-
       case "TEXTAREA":
         return { ...state, textareaValue: action.payload };
       case "ADD_TO_NOTES":
@@ -81,26 +76,6 @@ function NotesProvider({ children }) {
   }
   const noteCreatedDate = new Date().toLocaleString();
 
-  // const date =
-  //   newDate.getDate() +
-  //   "/" +
-  //   (newDate.getMonth() + 1) +
-  //   "/" +
-  //   newDate.getFullYear();
-
-  // const formattedMinutes =
-  //   newDate.getMinutes().length == 1
-  //     ? "0" + newDate.getMinutes()
-  //     : newDate.getMinutes();
-
-  // const formattedHours =
-  //   newDate.getHours().length == 1
-  //     ? "0" + newDate.getHours()
-  //     : newDate.getHours();
-
-  // const time = formattedHours + ":" + formattedMinutes;
-  // const noteCreatedDate = date + " at " + time;
-
   const [noteState, noteDispatch] = useReducer(noteReducer, {
     getNotes: [],
     postNotes: [],
@@ -111,10 +86,6 @@ function NotesProvider({ children }) {
     title: "",
     priority: "",
     label: "",
-
-    labelInput:"",
-    labelArray:"",
-
     textareaValue: "",
     notesBgColor: "#ffffff",
     noteModal: false,
@@ -129,8 +100,6 @@ function NotesProvider({ children }) {
     title,
     priority,
     label,
-    labelInput,
-    labelArray,
     textareaValue,
     notesBgColor,
     noteModal,
@@ -159,12 +128,11 @@ function NotesProvider({ children }) {
       title,
       priority,
       label,
-      labelArray,
+      // labelArray,
       textareaValue,
       notesBgColor,
       noteCreatedDate,
     };
-  console.log("from context",labelArray)
     try {
       const response = await axios({
         method: "POST",
@@ -377,7 +345,6 @@ async function deleteFromTrash (_id, noteDispatch){
         noteState,
         priority,
         label,
-        labelArray,
         textareaValue,
         addNote,
         notesBgColor,

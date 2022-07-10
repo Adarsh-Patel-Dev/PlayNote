@@ -60,11 +60,11 @@ li{
 
 .notecard-conatiner {
   width: 100%;
-  grid-gap: 1rem;
-  grid-gap: 1rem;
   gap: 1rem;
   flex-wrap: wrap;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: flex-start;
+  padding: 1rem 2rem;
 }
 
 .empty-notes-container{

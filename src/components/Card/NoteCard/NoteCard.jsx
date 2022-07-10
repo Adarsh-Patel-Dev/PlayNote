@@ -23,18 +23,19 @@ function NoteCard({ note }) {
     isEdit,
   } = note;
   const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
+  console.log("labelArray", labelArray);
 
-  function priorityColor(priority){
+  function priorityColor(priority) {
     switch (priority) {
       case "high":
         return "red";
 
       case "medium":
-        return "orange"
+        return "orange";
 
       case "low":
-        return "green"
-    
+        return "green";
+
       default:
         break;
     }
@@ -58,18 +59,19 @@ function NoteCard({ note }) {
       ></div>
 
       <div className="card-label-priority">
-            <div className="flex-row-center gap-1rem-start ">
-        {
-          labelArray.map(label=>(
-            <div className="note-card-label">
+        <div className="note-card-label">
           <MdLabelOutline />
           {label}
         </div>
-        ))}
-        </div>
-        <span 
-        style={{color:priorityColor(priority), borderColor:priorityColor(priority)}}
-        className="note-card-priority"><MdOutlinePriorityHigh/>{priority}</span>
+        <span
+          style={{
+            color: priorityColor(priority),
+            borderColor: priorityColor(priority),
+          }}
+          className="note-card-priority"
+        >
+          ! {priority}
+        </span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>
