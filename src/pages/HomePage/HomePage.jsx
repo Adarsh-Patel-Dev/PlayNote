@@ -11,107 +11,104 @@ function HomePage() {
   const { noteState } = useNoteContext();
   const { addToNotes, searchValue } = noteState;
 
-  const { filterState } = useFilterContext()
-  const {
-    filterModal,
-    label,
-    priority,
-    sortByDate,
-    sortByPriority,
-  } = filterState;
+  const { filterState } = useFilterContext();
+  const { filterModal, label, priority, sortByDate, sortByPriority } =
+    filterState;
   const { low, medium, urgent } = priority;
   const { home, school, office } = label;
   const { noteCreatedDate } = useNoteContext();
 
-  console.log("allnotesArray", addToNotes)
+  function filterByLabelsFun(array) {
+    const temp = [...array];
+    if (home && school && office) {
+      return temp;
+    }
+    if (home && school) {
+      return temp.filter((item) => item.label !== "office");
+    }
+    if (home && office) {
+      return temp.filter((item) => item.label !== "school");
+    }
+    if (school && office) {
+      return temp.filter((item) => item.label !== "home");
+    }
+    if (school) {
+      return temp.filter((item) => item.label == "school");
+    }
+    if (office) {
+      return temp.filter((item) => item.label == "office");
+    }
+    if (home) {
+      return temp.filter((item) => item.label == "home");
+    }
 
-  function filterByLabelsFun(array){
-    const temp = [...array]
-   if( home && school && office ){
-    return temp
-   }
-   if( home && school ){
-    return temp.filter(item=>item.label !=="office")
-  }
-  if( home && office ){
-     return temp.filter(item=>item.label !=="school")
-    }
-    if( school && office ){
-     return temp.filter(item=>item.label !=="home")
-   }
-    if( school ){
-     return temp.filter(item=>item.label !=="school")
-   }
-    if( office ){
-     return temp.filter(item=>item.label !=="office")
-   }
-    if( home ){
-     return temp.filter(item=>item.label !=="home")
-   }
-
-   return temp
-
-  }
-
-  const filterByLabels = filterByLabelsFun(addToNotes)
-
-  function filterByPriorityFun(array){
-    const temp = [...array]
-    if( low && medium && urgent ){
-     return temp
-    }
-    if( low && medium ){
-     return temp.filter(item=>item.priority !=="urgent")
-   }
-   if( low && urgent ){
-      return temp.filter(item=>item.priority !=="medium")
-     }
-     if( medium && urgent ){
-      return temp.filter(item=>item.priority !=="low")
-    }
-     if( medium ){
-      return temp.filter(item=>item.priority !=="medium")
-    }
-     if( urgent ){
-      return temp.filter(item=>item.priority !=="urgent")
-    }
-     if( low ){
-      return temp.filter(item=>item.priority !=="low")
-    }
- 
-    return temp
-  }
-
-  const filterByPriority = filterByPriorityFun(filterByLabels)
-
-  function sortByDateFun(array, sortByDate){
-    let temp = [...array]
-    if(sortByDate){
-      return temp.sort((a,b)=> new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate))
-    }
-    if(!sortByDate){
-      return temp.sort((a,b)=> new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate))
-    }
-    return temp;
-  }
-  
-  const sortedByDate = sortByDateFun(filterByPriority,sortByDate)
-  console.log("sortedby date", sortedByDate)
-  
-  function sortByPriorityFun(array,sortByPriority){
-    let temp = [...array]
-    if(sortByPriority){
-      temp.sort((a,b)=> a.priority.toUpperCase() > b.priority.toUpperCase() ? 1 :-1)
-    }
-    if(!sortByPriority){
-      temp.sort((a,b)=> a.priority.toUpperCase() < b.priority.toUpperCase() ? 1 :-1)
-    }
-    console.log("inside fun", temp)
     return temp;
   }
 
-  const sortedByPriority = sortByPriorityFun(sortedByDate,sortByPriority)
-  console.log("sorted by priority", sortedByPriority)
+  const filterByLabels = filterByLabelsFun(addToNotes);
+
+  function filterByPriorityFun(array) {
+    const temp = [...array];
+    if (low && medium && urgent) {
+      return temp;
+    }
+    if (low && medium) {
+      return temp.filter((item) => item.priority !== "urgent");
+    }
+    if (low && urgent) {
+      return temp.filter((item) => item.priority !== "medium");
+    }
+    if (medium && urgent) {
+      return temp.filter((item) => item.priority !== "low");
+    }
+    if (medium) {
+      return temp.filter((item) => item.priority == "medium");
+    }
+    if (urgent) {
+      return temp.filter((item) => item.priority == "urgent");
+    }
+    if (low) {
+      return temp.filter((item) => item.priority == "low");
+    }
+
+    return temp;
+  }
+
+  const filterByPriority = filterByPriorityFun(filterByLabels);
+
+  function sortByDateFun(array, sortByDate) {
+    let temp = [...array];
+    if (sortByDate) {
+      return temp.sort(
+        (a, b) => new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate)
+      );
+    }
+    if (!sortByDate) {
+      return temp.sort(
+        (a, b) => new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate)
+      );
+    }
+    return temp;
+  }
+
+  const sortedByDate = sortByDateFun( filterByPriority, sortByDate );
+
+  function sortByPriorityFun(array, sortByPriority) {
+    let temp = [...array];
+    if (sortByPriority) {
+      temp.sort((a, b) =>
+        a.priority.toUpperCase() > b.priority.toUpperCase() ? 1 : -1
+      );
+    }
+    if (!sortByPriority) {
+      temp.sort((a, b) =>
+        a.priority.toUpperCase() < b.priority.toUpperCase() ? 1 : -1
+      );
+    }
+    return temp;
+  }
+
+  const sortedByPriority = sortByPriorityFun(sortedByDate, sortByPriority);
 
   const searchResultNotes = sortedByPriority.filter(
     (note) =>

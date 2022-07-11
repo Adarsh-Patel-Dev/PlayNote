@@ -5,34 +5,25 @@ import "./filtermodal.css";
 
 function FilterModal() {
   const { filterState, filterDispatch } = useFilterContext();
-  const {
-    filterModal,
-    label,
-    priority,
-    sortByLatestDate,
-    sortByOldestDate,
-    sortByHighPriority,
-    sortByLowPriority,
-  } = filterState;
+  const { filterModal, label, priority } = filterState;
   const { low, medium, urgent } = priority;
   const { home, school, office } = label;
   const [key, setKey] = useState(0);
+
   return (
     <div
-      style={{ display: filterModal ? "none" : "block" }}
+      style={{ display: filterModal ? "block": "none" }}
       className="modal-container-filter"
     >
       <div id="myModal" className=" filter-modal modal">
         <div className="modal-content">
-          <button
-            onClick={() => {
-              setKey(key + 1);
-              filterDispatch({ type: "RESET_FILTER" });
-            }}
-            className="asidebar-btn top-right"
-          >
-            Clear All
-          </button>
+          <MdClose
+             onClick={() => {
+                  filterDispatch({ type: "FILTER_MODAL", payload: false });
+                }}
+              className="close"
+            ></MdClose>
+
           <div className="modal-body">
             <p className="modal-title">
               <MdOutlineFilterAlt />
@@ -122,7 +113,7 @@ function FilterModal() {
               <li>
                 <input
                   onChange={() =>
-                    filterDispatch({ type: "SORT_BY_LATEST", payload: true })
+                    filterDispatch({ type: "SORT_BY_DATE", payload: true })
                   }
                   // checked={sortByLatestDate}
                   name="sortby"
@@ -135,7 +126,7 @@ function FilterModal() {
               <li>
                 <input
                   onChange={() =>
-                    filterDispatch({ type: "SORT_BY_OLDEST", payload: false })
+                    filterDispatch({ type: "SORT_BY_DATE", payload: false })
                   }
                   // checked={sortByOldestDate}
                   name="sortby"
@@ -187,7 +178,7 @@ function FilterModal() {
                 onClick={() => {
                   filterDispatch({ type: "FILTER_MODAL", payload: false });
                 }}
-                className="btn-modal"
+                className="asidebar-btn apply-filter-btn"
               >
                 Apply
               </button>

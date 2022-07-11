@@ -40,7 +40,10 @@ const AuthProvider = ({ children }) => {
   });
 
 
-  async function signUp(firstName, lastname, email, pasword, navigate, location) {
+  async function signUp(firstName, lastname, email, pasword, navigate, location, encodedToken) {
+    if (firstName === "" || lastname === "" || email === "" || pasword === "") {
+      Toast({ type: "error", msg: "Please input all fields." });
+    }
     try {
       const regExForEmail =  /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
       
@@ -57,7 +60,6 @@ const AuthProvider = ({ children }) => {
       });
       if (response.status === 201) {
         localStorage.setItem("token",response.data.encodedToken);
-        console.table("token",response);
         navigate(location?.state?.from?.pathname, { replace: true})
         Toast({ type: "sucess", msg: `Welcome ${response.data.createdUser.someUserAttribute1}` });
         setUserName(response.data.createdUser.someUserAttribute1)
@@ -76,7 +78,10 @@ const AuthProvider = ({ children }) => {
     try {
         if(encodedToken){
             console.log("ALready loggedIN")
-            Toast({ type: "info", msg: `You're already Logged IN 😎`  });            
+            Toast({ type: "info", msg: `You're already Logged IN `  });            
+        }
+        if (email === "" || password === "") {
+          Toast({ type: "error", msg: "Enter all inputs." });
         }
       const response = await axios({
         method: "POST",
@@ -89,7 +94,7 @@ const AuthProvider = ({ children }) => {
       if (response.status === 200) {
         localStorage.setItem("token",response.data.encodedToken);
         navigate(location?.state?.from?.pathname, { replace: true})
-        Toast({ type: "success", msg: "Log In successful😃" });
+        Toast({ type: "success", msg: "Log In successful" });
       }
     } catch (error) {
       console.log(error);

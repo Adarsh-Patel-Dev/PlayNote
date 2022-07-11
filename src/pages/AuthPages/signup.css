@@ -145,8 +145,6 @@ input:focus{
     cursor: pointer;
     font-family: inherit;
     border: transparent;
-    background-color: white;
-    color: green;
     font-weight: bold;
     transition: 0.5s;
 

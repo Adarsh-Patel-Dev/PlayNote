@@ -3,11 +3,12 @@ import "./search-bar.css"
 import { MdFilterList, MdOutlineSearch } from "react-icons/md";
 import { useNoteContext } from "../../Context/noteContext";
 import { FilterModal } from "../Modals/FilterModal/FilterModal";
+import { useFilterContext } from "../../Context/FilterContext";
 
 function Searchbar() {
   const { noteDispatch, noteState } = useNoteContext();
   const { searchValue }  = noteState
-  const [ filterModal, setFilterModal ] = useState(false)
+  const { filterState:{filterModal}, filterDispatch }  = useFilterContext()
   return (
     <div className="search-bar flex-row-center">
       <div className="search-bar-icon">
@@ -18,13 +19,11 @@ function Searchbar() {
       value={searchValue}
       className="search-bar-input" placeholder="search here..."/>
       <div 
-      onClick={()=>{
-        console.log("click")
-        setFilterModal(prev=>!prev)}}
+      onClick={()=>
+       filterDispatch({type:"FILTER_MODAL", payload:true })
+       }
       className="search-bar-icon"><MdFilterList /></div>
-      <div style={{display:filterModal?"none":"block"}}>
       <FilterModal />
-      </div>
     </div>
   );
 }

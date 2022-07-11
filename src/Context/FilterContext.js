@@ -39,14 +39,8 @@ const filterReducer = (state, action) => {
     case "SORT_BY_DATE":
       return { ...state, sortByDate: action.payload };
 
-    case "SORT_BY_OLDEST":
-      return { ...state, sortByOldestDate: action.payload };
-    
-      case "SORT_BY_PRIORITY":
+    case "SORT_BY_PRIORITY":
       return { ...state, sortByPriority: action.payload };
-
-    case "SORT_BY_LOW_TO_HIGH_PRIORITY":
-      return { ...state, sortByLowPriority: action.payload };
 
     case "RESET_FILTER":
       return {
@@ -62,9 +56,7 @@ const filterReducer = (state, action) => {
           urgent: false,
         },
         sortByDate: null,
-        sortByOldestDate:false,
         sortByPriority: null,
-        sortByLowPriority:false,
       };
 
     case "FILTER_MODAL":
@@ -93,67 +85,8 @@ const FilterProvider = ({ children }) => {
       urgent: false,
     },
     sortByDate: null,
-        sortByOldestDate:false,
-        sortByPriority: null, 
-        sortByLowPriority:false,
+    sortByPriority: null,
   });
-
-  function sortByDate(sortByDate, notesArray) {
-
-    if (sortByDate) {
-      return [...notesArray].sort(
-        (a, b) => new Date(b.noteCreatedDate) - new Date(a.noteCreatedDate)
-      );
-    } else {
-      return [...notesArray].sort(
-        (a, b) => new Date(a.noteCreatedDate) - new Date(b.noteCreatedDate)
-      );
-    }
-  }
-
-  console.log(sortByDate(filterState.sortByDate, addToNotes));
-
-  // function sortByPriority( sortby, notesArray ){
-  //     switch (sortby) {
-  //         case "HIGH_TO_LOW":
-  //             return [...notesArray].sort((a,b) => a.priority - b.priority )
-
-  //         case "LOW_TO_HIGH":
-  //             return [...notesArray].sort((a,b) =>b.priority - a.priority )
-
-  //         default:
-  //             return notesArray;
-  //     }
-  // }
-
-  function filterByPriority({ priority }, notesArray) {
-    return notesArray.filter((note) => note.priority === priority);
-  }
-
-  function filterByLabels({ labels }, notesArray) {
-    return notesArray.filter((note) =>
-      note.labels.some((label) => labels.includes(label))
-    );
-  }
-
-  const applyFilters =
-    (filterState, ...args) =>
-    (notes) => {
-      return args.reduce((acc, curr) => {
-        return curr(filterState, acc);
-      }, notes);
-    };
-
-  const getNotes = (filterState, addToNotes) =>
-    applyFilters(
-      filterState,
-      sortByDate
-      // sortByPriority,
-      // filterByLabels,
-      // filterByPriority
-    )(addToNotes);
-
-  console.log("filter", getNotes(filterState, addToNotes));
 
   return (
     <FilterContext.Provider value={{ filterState, filterDispatch }}>

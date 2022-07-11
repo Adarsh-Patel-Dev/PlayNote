@@ -4,8 +4,6 @@ import { useAuthContext } from "../../Context/AuthContext";
 import "./signup.css";
 
 const Signup = () => {
-
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -18,12 +16,6 @@ const Signup = () => {
 
   return (
     <div className="main">
-      <img
-        className="bg-img"
-        src=""
-        alt=""
-      />
-
       <div className="signup-page">
         <h2 className="signup-title">Sign Up</h2>
         <div className="userName-input">
@@ -78,21 +70,14 @@ const Signup = () => {
           placeholder="Re Enter Password"
           required
         />
-        {/* {confirmPassword !== "" && password === confirmPassword ? (
+        {confirmPassword !== "" && password === confirmPassword ? (
           <span>Password are matched ✅</span>
         ) : (
-          confirmPassword !== "" &&  (<span>Password mis-matched❗</span>)
-        )} */}
+          confirmPassword !== "" && <span>Password mis-matched❗</span>
+        )}
 
-        {/* {
-            password === confirmPassword ? (<p>mismatched</p>) : (<p>matched</p>)
-        } */}
-       
         <div className="checkbox-signup">
-          <input type="checkbox" className="signup" />
-          <label className="signup-label">
-            I agree to the Terms of Service and Privacy Policy
-          </label>
+          <label className="signup-label"></label>
         </div>
 
         <button
@@ -143,6 +128,5 @@ const Signup = () => {
     </div>
   );
 };
-
 
 export { Signup };

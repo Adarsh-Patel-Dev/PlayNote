@@ -23,7 +23,6 @@ function NoteCard({ note }) {
     isEdit,
   } = note;
   const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
-  console.log("labelArray", labelArray);
 
   function priorityColor(priority) {
     switch (priority) {
