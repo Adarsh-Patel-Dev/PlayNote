@@ -9,7 +9,7 @@ import { useFilterContext } from "../../Context/FilterContext";
 
 function HomePage() {
   const { noteState } = useNoteContext();
-  const { addToNotes, searchValue } = noteState;
+  const { addToNotes, searchValue, pinnedNotes } = noteState;
 
   const { filterState } = useFilterContext();
   const { filterModal, label, priority, sortByDate, sortByPriority } =
@@ -125,7 +125,20 @@ function HomePage() {
         <Asidebar />
         <div className="main-content flex-col-center">
           <Searchbar />
+            { pinnedNotes.length > 0 &&(<p>Pinned</p>)
+              }
           <div className="notecard-conatiner flex-row-center">
+          
+          <div>
+          {
+          
+            pinnedNotes.length > 0 && pinnedNotes.map((note)=>
+              <NoteCard key={note._id} note={note}/>
+             )
+
+            }</div>
+           
+
             {searchResultNotes.length ? (
               searchValue.length > 0 ? (
                 searchResultNotes.map((note) => (

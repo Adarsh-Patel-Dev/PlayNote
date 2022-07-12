@@ -6,7 +6,7 @@ import {
   MdOutlineArchive,
   MdOutlinePriorityHigh,
 } from "react-icons/md";
-import { BsPinAngle } from "react-icons/bs";
+import { BsFillPinAngleFill, BsPinAngle } from "react-icons/bs";
 import "./note-card.css";
 import { useNoteContext } from "../../../Context/noteContext";
 
@@ -22,7 +22,14 @@ function NoteCard({ note }) {
     noteCreatedDate,
     isEdit,
   } = note;
-  const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
+  let { noteDispatch, adddToArchive, addToNotes, adddToTrash, pinnedNotes, deleteFromTrash } = useNoteContext();
+
+  // function unPinnedNotes(id){
+  //    pinnedNotes = pinnedNotes.filter((note)=>note._id !== id)
+  // }
+
+  console.log("pinnedNOtesafterdelete", pinnedNotes)
+  
 
   function priorityColor(priority) {
     switch (priority) {
@@ -47,9 +54,25 @@ function NoteCard({ note }) {
     >
       <div className="note-card-header flex-row-center">
         <h3 className="note-card-title">{title}</h3>
-        <span className="note-card-pinned">
+       { pinnedNotes.find((note)=>note._id === _id) ?
+         (<span 
+        onClick={()=>{
+          noteDispatch({type:"PINNED_NOTES",payload:pinnedNotes.filter(note=>note._id!==_id)})
+          noteDispatch({type:"ADD_TO_NOTES",payload:[...addToNotes,note]})
+        }
+        
+        }
+        className="note-card-pinned">
+          <BsFillPinAngleFill />
+        </span>):(
+          <span 
+        onClick={()=>{noteDispatch({type:"PINNED_NOTES", payload : [...pinnedNotes, note]})
+        noteDispatch({type:"ADD_TO_NOTES",payload:addToNotes.filter(note=>note._id!==_id)})
+        }}
+        className="note-card-pinned">
           <BsPinAngle />
         </span>
+        )}
       </div>
 
       <div

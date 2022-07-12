@@ -11,10 +11,9 @@ const useNoteContext = () => useContext(NoteContext);
 function NotesProvider({ children }) {
   function noteReducer(state, action) {
     switch (action.type) {
-      case "GET_NOTES":
-        return { ...state, getNotes: action.payload };
-      case "POST_NOTES":
-        return { ...state, postNotes: action.payload };
+      case "PINNED_NOTES":
+        return { ...state, pinnedNotes: action.payload };
+        // return { ...state, pinnedNotes: [...state.pinnedNotes,action.payload] };
       case "TITLE":
         return { ...state, title: action.payload };
       case "PRIORITY":
@@ -77,8 +76,7 @@ function NotesProvider({ children }) {
   const noteCreatedDate = new Date().toLocaleString();
 
   const [noteState, noteDispatch] = useReducer(noteReducer, {
-    getNotes: [],
-    postNotes: [],
+    pinnedNotes: [],
     addToNotes: [],
     archiveNotes: [],
     trashNotes: [],
@@ -89,13 +87,13 @@ function NotesProvider({ children }) {
     textareaValue: "",
     notesBgColor: "#ffffff",
     noteModal: false,
-    // noteCreatedDate: newDate,
     isEdit: false,
     editNote:{},
     searchValue:"",
   });
 
   const {
+    pinnedNotes,
     addToNotes,
     title,
     priority,
@@ -105,6 +103,8 @@ function NotesProvider({ children }) {
     noteModal,
     isEdit,
   } = noteState;
+
+  console.log("pinnednotes",pinnedNotes)
 
 
   async function getNotesData() {
@@ -128,7 +128,6 @@ function NotesProvider({ children }) {
       title,
       priority,
       label,
-      // labelArray,
       textareaValue,
       notesBgColor,
       noteCreatedDate,
@@ -340,6 +339,7 @@ async function deleteFromTrash (_id, noteDispatch){
   return (
     <NoteContext.Provider
       value={{
+        pinnedNotes,
         addToNotes,
         noteDispatch,
         noteState,
