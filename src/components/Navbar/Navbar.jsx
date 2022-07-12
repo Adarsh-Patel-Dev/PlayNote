@@ -9,6 +9,8 @@ function Navbar() {
   const encodedToken = localStorage.getItem("token")
   const navigate = useNavigate();
   const location = useLocation();
+  const { pathname } = useLocation();             //location is obj {pathname, state, something}
+
   return (
     <div className='navbar'>
        <Link to="/home">
@@ -26,7 +28,7 @@ function Navbar() {
         >Logout</div>):(
           <div className='navbar-logout'
          onClick={()=>{
-            navigate('/signup')
+            navigate('/login', { state: { from: pathname } })
            }}
         >Login</div>
         )

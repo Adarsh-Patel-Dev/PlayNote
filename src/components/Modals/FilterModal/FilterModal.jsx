@@ -12,17 +12,24 @@ function FilterModal() {
 
   return (
     <div
-      style={{ display: filterModal ? "block": "none" }}
+      style={{ display: filterModal ? "block" : "none" }}
+      onClick={() => {
+        filterDispatch({ type: "FILTER_MODAL", payload: false });
+      }}
       className="modal-container-filter"
     >
-      <div id="myModal" className=" filter-modal modal">
+      <div
+        onClick={(e) => e.stopPropagation()}
+        id="myModal"
+        className=" filter-modal modal"
+      >
         <div className="modal-content">
           <MdClose
-             onClick={() => {
-                  filterDispatch({ type: "FILTER_MODAL", payload: false });
-                }}
-              className="close"
-            ></MdClose>
+            onClick={() => {
+              filterDispatch({ type: "FILTER_MODAL", payload: false });
+            }}
+            className="close"
+          ></MdClose>
 
           <div className="modal-body">
             <p className="modal-title">

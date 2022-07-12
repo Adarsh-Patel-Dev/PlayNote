@@ -64,7 +64,7 @@ function NotesProvider({ children }) {
           textareaValue: "",
           priority: "",
           label: "",
-          notesBgColor: "#ffffff",
+          notesBgColor: "#F1F3F4",
         };
 
       case "SEARCH":
@@ -85,7 +85,7 @@ function NotesProvider({ children }) {
     priority: "",
     label: "",
     textareaValue: "",
-    notesBgColor: "#ffffff",
+    notesBgColor: "#F1F3F4",
     noteModal: false,
     isEdit: false,
     editNote:{},

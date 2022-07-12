@@ -10,7 +10,6 @@ import { RichTextEditor } from "../../RichTextEditor/RichTextEditor";
 import "./modal.css";
 
 function NoteModal() {
-
   let {
     noteState,
     noteDispatch,
@@ -28,10 +27,16 @@ function NoteModal() {
   return (
     <div
       style={{ display: noteModal ? "block" : "none" }}
+      onClick={() => {
+        noteDispatch({ type: "NOTE_MODAL", payload: false });
+        noteDispatch({ type: "CLEAR_INPUT" });
+        noteDispatch({ type: "IS_EDIT", payload: false });
+      }}
       defaultValue="#FFFF"
       className="modal--container"
     >
       <div
+        onClick={(e) => e.stopPropagation()}
         id="myModal"
         className="modal"
         style={{ backgroundColor: notesBgColor }}

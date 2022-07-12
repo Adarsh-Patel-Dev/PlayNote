@@ -79,10 +79,10 @@ function Asidebar() {
         </ul>
 
         <button
-          className="asidebar-btn"
+          className="asidebar-btn add-note-btn"
           onClick={() => noteDispatch({ type: "NOTE_MODAL", payload: true })}
         >
-          Add Note
+          Take a Note
         </button>
       </div>
       {userName && (<div className="asidebar-user flex-row-center">

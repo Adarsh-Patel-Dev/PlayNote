@@ -22,7 +22,9 @@ function Searchbar() {
       onClick={()=>
        filterDispatch({type:"FILTER_MODAL", payload:true })
        }
-      className="search-bar-icon"><MdFilterList /></div>
+      className="search-bar-icon"><MdFilterList />
+      <span className="tooltip">filter</span>
+      </div>
       <FilterModal />
     </div>
   );

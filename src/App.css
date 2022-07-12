@@ -59,6 +59,7 @@ li{
 }
 
 .notecard-conatiner {
+  height: 100vh;
   width: 100%;
   gap: 1rem;
   flex-wrap: wrap;
@@ -68,8 +69,8 @@ li{
 }
 
 .empty-notes-container{
-  width: 90%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
   gap: 2rem;
 }
 

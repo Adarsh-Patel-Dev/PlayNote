@@ -3,7 +3,7 @@
     width: auto;
     max-width: 15rem;
     height: 90vh;
-    background-color: #cdc9f7;
+    /* background-color: #cdc9f7; */
     color: black;
     justify-content: space-between;
     flex-direction: column;
@@ -15,28 +15,26 @@ gap: 4rem;
 }
 
 .asidebar-list {
+    width: 100%;
     padding: 0;
-    align-items: flex-start;
+    align-items: center;
     grid-gap: 0.5rem;
-    gap: 1.2rem;
+    grid-gap: 1.2rem;
+    /* gap: 1.2rem; */
 }
 
 .asidebar-list-items {
+    width:100%;
     font-weight: inherit;
     font-size: 1.2rem;
     display: flex;
+    grid-gap: 11px;
     gap: 11px;
+    /* padding: 0.8rem 1rem; */
+    justify-content: center;
     align-items: center;
     transition: 1s;
 }
-
-.asidebar-list-items:hover{
-    transition: 1s;
-    background-color: #897ff7;
-    color: white;
-    padding: 0rem 0.5rem;
-}
-
 
 .asidebar-btn {
     border: transparent;
@@ -101,17 +99,55 @@ directly using "active" class
 
 /* using classNames*/
 
-.asidebar-list a.is-active{
-    width: 9rem;
+.asidebar-list a.is-active {
+    width: 100%;
     font-weight: bold;
-    color:rgb(255, 255, 255);
-    background-color: #897ff7;
-    padding: 0.1rem 1rem;
+    /* color: rgb(255, 255, 255); */
+    background-color: #c4c0f2;
+    border-radius: 0px 50px 50px 0px;
     
+    padding: 0.8rem 1rem;
+    border-left: 5px solid mediumpurple;
 }
 
 .asidebar-list a.not-active{
     width: 9rem;
-    padding: 0.1rem 1rem;
+    padding: 0.8rem 1rem;
+    transition: 1s;
+    color:gray;
+}
+
+.asidebar-list a.not-active:hover{
+    transition: 1s;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: #c4c0f2;
+    border-radius: 0px 50px 50px 0px;
     
+}
+
+.add-note-btn{
+    font-family: inherit;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    color: rgb(41, 40, 40);
+    font-size: 1rem;
+    background: #c4c0f2;
+    transition: 1s;
+    font-weight: 700;
+    padding: 1rem; 
+}
+.add-note-btn:hover{
+    box-shadow: 0 0 10px 0px mediumpurple inset, 0 0 10px 4px mediumpurple;
+    font-family: inherit;
+    border-radius: 10px;
+    border: 2px solid mediumpurple;
+    color: rgb(41, 40, 40);
+    font-size: 1rem;
+    background: transparent;
+    /* background: mediumpurple; */
+    transition: 1s;
+    font-weight: 700;
+    transform: scale(1);
+    padding: 1rem; 
 }
