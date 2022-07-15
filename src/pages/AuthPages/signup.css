@@ -1,5 +1,5 @@
 .checkbox{
-    accent-color: var(--LIGHT-GREEN);
+    accent-color: mediumpurple;
 }
 
 .main{
@@ -27,34 +27,37 @@
     justify-content: center;
     flex-direction: column;
     position: fixed;
-    width: 32rem;
+    width: 27rem;
     height: auto;
     left: 50%;
-    top: 52%;
+    top: 50%;
     transform: translate(-50%, -50%);
     grid-gap: 1rem;
     grid-gap: 1rem;
     gap: 1rem;
-    background: var(--WHITE);
-    opacity: 0.7;
-    border-radius: 1.5rem;
+    background: rgba(255, 255, 255, 0.21);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(222, 145, 255, 0.65)
 }
 
 .signup-title {
-    padding-bottom: 2rem;
+    padding-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-style: normal;
     font-size: 3.84rem;
     line-height: 5.2rem;
-    color: var(--LIGHT-GREEN);;
+    color: inherit;
 
 }
 
 
 .userName-input {
-    width: 75%;
+    width: 20rem;
     display: flex;
     gap: 0.5rem;
     justify-content: center;
@@ -62,7 +65,7 @@
 
 
 .userName-input input{
-   width: 40%;
+   width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -74,21 +77,13 @@
     justify-content: center;
     align-items: center;
     width: 20rem;
-    transition: ease-in-out, width 0.35s ease-in-out;
-    background: var(--WHITE);
+    background: white;
 
-    border: 1px solid VAR(--LIGHT-GREEN);;
+    border: 1px solid mediumslateblue;
     box-sizing: border-box;
     border-radius: 100px;
 }
 
-.signup-input:focus{
-    width: 23rem;
-}
-
-input:focus{
-    border: 1px solid blue;
-}
 
 .checkbox-signup {
     display: flex;
@@ -112,14 +107,14 @@ input:focus{
     font-size: 1.5rem;
     border: transparent;
     font-family: inherit;
-    background: VAR(--LIGHT-GREEN);
+    background: mediumpurple;
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     transition: 0.5s;
 }
 
 .btn-login:hover {
-    background: var(--GREEN);
+    background: mediumslateblue;
     color: var(--WHITE);
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -132,7 +127,7 @@ input:focus{
     align-items: center;
     grid-gap: 1rem;
     gap: 1rem;
-    margin: 1rem;
+    margin: 0rem;
     width: 75%;
     height: 3rem;
     font-style: normal;
@@ -156,7 +151,10 @@ input:focus{
     text-decoration: underline;
     font-family: inherit;
     border: transparent;
-    background-color: white;
-    color: green;
     font-weight: bold;
+}
+
+.outline{
+    background-color: transparent;
+    border: 1px solid mediumslateblue;
 }

@@ -3,6 +3,10 @@
 }
 
 .main{
+    background: #B993D6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8CA6DB, #B993D6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #8CA6DB, #B993D6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -35,7 +39,7 @@
     grid-gap: 1rem;
     grid-gap: 1rem;
     gap: 1rem;
-    background: var(--WHITE);
+    background: white;
     opacity: 0.7;
     border-radius: 1.5rem;
 }
@@ -74,7 +78,6 @@
     justify-content: center;
     align-items: center;
     width: 20rem;
-    transition: ease-in-out, width 0.35s ease-in-out;
     background: var(--WHITE);
 
     border: 1px solid VAR(--LIGHT-GREEN);;
@@ -82,9 +85,7 @@
     border-radius: 100px;
 }
 
-.signup-input:focus{
-    width: 23rem;
-}
+
 
 input:focus{
     border: 1px solid blue;
@@ -146,8 +147,8 @@ input:focus{
     cursor: pointer;
     font-family: inherit;
     border: transparent;
-    background-color: white;
-    color: green;
+    background-color: transparent;
+    color: blue;
     font-weight: bold;
     transition: 0.5s;
 
@@ -159,7 +160,5 @@ input:focus{
     text-decoration: underline;
     font-family: inherit;
     border: transparent;
-    background-color: white;
-    color: green;
     font-weight: bold;
 }

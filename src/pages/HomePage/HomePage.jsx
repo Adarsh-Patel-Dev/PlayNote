@@ -128,17 +128,18 @@ function HomePage() {
             { pinnedNotes.length > 0 &&(<p>Pinned</p>)
               }
           <div className="notecard-conatiner flex-row-center">
+
+          {/* ------- todo------- */}
           
-          <div>
+          {/* <div style={{display:"flex", gap:"1rem"}}>
           {
           
             pinnedNotes.length > 0 && pinnedNotes.map((note)=>
               <NoteCard key={note._id} note={note}/>
              )
 
-            }</div>
+            }</div> */}
            
-
             {searchResultNotes.length ? (
               searchValue.length > 0 ? (
                 searchResultNotes.map((note) => (

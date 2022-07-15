@@ -1,4 +1,4 @@
-.main-container {
+/* .main-container {
     margin: 5rem;
     padding: 1.5rem;
     width:calc(100% - 13rem);
@@ -68,4 +68,96 @@
     
 width: auto;
 height: auto;
+} */
+
+.main-container{
+  display:flex;
+  /* background-color: #8EC5FC;
+background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%); */
+
+  /* background-image: linear-gradient( 135deg, #CE9FFC 10%, #7367F0 100%);; */
+  height: 100vh;
+  width: 100vw;
+  gap: 1rem;
+  padding: 3rem 7rem;
+  background: #B993D6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #8CA6DB, #B993D6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #8CA6DB, #B993D6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.main-container-details{
+  width: 50vw;
+  object-fit: scale-down;
+}
+
+.main-container-details>*{
+ width: 100%;
+}
+
+.main-container-heading{
+  font-weight: 600;
+}
+
+.main-container-img{
+  object-fit: fill;
+  width: 50vw;
+}
+
+.main-container-img img{
+  width: 100%;
+  height: 100%;
+}
+
+.main-container-heading{
+  font-family:inherit;
+  color:white;
+  font-size:5rem;
+}
+
+.orange{
+  color:#3F3D56;
+}
+
+.easy-text{
+  transform:rotate(-45deg);
+  padding:0 10px;
+  /* border:1px solid #3F3D56; */
+  /* color:#6C63FF */
+  color:#3F3D56;
+  
+}
+
+.main-container-description{
+  color:white;
+  font-weight:500;
+  font-size:1.6rem;
+}
+
+.cta-btns{
+  margin-top: 2rem;
+  display:flex;
+  gap:1.5rem;
+}
+.main-container-btn{
+  /* font-family:inherited; */
+  padding:1rem 4rem;
+  border:transparent;
+  color:white;
+  background:#6C63FF;
+  border-radius:2rem;
+  font-size:1.2rem;
+  font-weight:600;
+
+}
+
+.main-container-btn:hover{
+  cursor: pointer;
+}
+
+.border{
+  border-style: double;
+  border: 2px solid #3F3D56;
+  background-color: transparent;
+  color: #3F3D56;
 }

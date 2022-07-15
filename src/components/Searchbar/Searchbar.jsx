@@ -23,7 +23,7 @@ function Searchbar() {
        filterDispatch({type:"FILTER_MODAL", payload:true })
        }
       className="search-bar-icon"><MdFilterList />
-      <span className="tooltip">filter</span>
+      {/* <span className="tooltip">filter</span> */}
       </div>
       <FilterModal />
     </div>

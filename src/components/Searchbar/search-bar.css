@@ -21,7 +21,7 @@
 }
 
 .search-bar-icon{
-    position:relative;
+    /* position:relative; */
     height: 1.5rem;
     color: #5348c7;
     transition:1s;
@@ -29,7 +29,6 @@
 }
 
 .search-bar-icon:hover{
-   /* transform: rotate(360deg); */
     transition:1s;
     cursor:pointer;
     height: 1.5rem;

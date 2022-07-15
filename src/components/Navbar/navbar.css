@@ -1,7 +1,9 @@
 .navbar {
+    background: white;
+    position: sticky;
     height: auto;
     max-height: 10rem;
-    min-width:38rem;
+    min-width: 38rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -10,11 +12,13 @@
     font-size: 1.2rem;
     font-weight: 300;
     border-bottom: 1px solid lightgray;
+    top: 0;
+    z-index: 5;
 }
 
 .navbar-brand-logo{
     cursor: pointer;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 2rem;
 }
 

@@ -81,7 +81,7 @@ const Signup = () => {
         </div>
 
         <button
-          className="btn-login"
+          className="btn-login outline"
           onClick={() =>
             signUp(
               firstName,

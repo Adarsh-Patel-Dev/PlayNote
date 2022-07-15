@@ -4,24 +4,26 @@ import HeroImg from "../../Assets/heroImage.svg"
 import { NavLink } from "react-router-dom"
 
 function LandingPage() {
+  const encodedToken = localStorage.getItem("token")
   return (
     <div>
       <div className="main-container">
         <div className="main-container-details">
-          <h1 className="main-container-heading">PlayNote</h1>
-          <div className="main-container-detail">
-            <p>Meet your Modern Note Taking App</p>
-          </div>
-          <div className="main-container-description">
-            Manage your daily tasks and workflow in a modern way and boost your
-            efficiency without any efforts.
-          </div>
+          <p className="main-container-heading"><span className="orange">Create,</span> Oraganise Your Notes with <span className="easy-text">PlayNote</span></p>
+
+          <div className="cta-btns ">
+          
          <NavLink to ="/home">
-         <button className="main-container-btn">Get Started</button>
+        { encodedToken ?
+           <button className="main-container-btn">Get Started</button>
+           : ""
+           }
          </NavLink>  
          <NavLink to="/login">
-          <p className="main-container-login-msg">Already Have an Account?</p>
+          <button className="main-container-btn border">Login</button>
          </NavLink>
+         </div>
+
         </div>
         <div className="main-container-img">
         <img src={HeroImg} />

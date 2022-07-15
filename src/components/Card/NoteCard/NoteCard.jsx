@@ -24,9 +24,8 @@ function NoteCard({ note }) {
   } = note;
   let { noteDispatch, adddToArchive, addToNotes, adddToTrash, pinnedNotes, deleteFromTrash } = useNoteContext();
 
-  // function unPinnedNotes(id){
-  //    pinnedNotes = pinnedNotes.filter((note)=>note._id !== id)
-  // }
+  console.log("pinned",pinnedNotes)
+  console.log("all", addToNotes)
 
   console.log("pinnedNOtesafterdelete", pinnedNotes)
   
@@ -54,7 +53,10 @@ function NoteCard({ note }) {
     >
       <div className="note-card-header flex-row-center">
         <h3 className="note-card-title">{title}</h3>
-       { pinnedNotes.find((note)=>note._id === _id) ?
+
+          {/* ------- todo------- */}
+
+       {/* { pinnedNotes.find((note)=>note._id === _id) ?
          (<span 
         onClick={()=>{
           noteDispatch({type:"PINNED_NOTES",payload:pinnedNotes.filter(note=>note._id!==_id)})
@@ -68,11 +70,13 @@ function NoteCard({ note }) {
           <span 
         onClick={()=>{noteDispatch({type:"PINNED_NOTES", payload : [...pinnedNotes, note]})
         noteDispatch({type:"ADD_TO_NOTES",payload:addToNotes.filter(note=>note._id!==_id)})
+        deleteFromTrash(_id, noteDispatch)
+        console.log("clicked")
         }}
         className="note-card-pinned">
           <BsPinAngle />
         </span>
-        )}
+        )} */}
       </div>
 
       <div

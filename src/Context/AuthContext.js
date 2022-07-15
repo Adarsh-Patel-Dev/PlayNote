@@ -58,9 +58,11 @@ const AuthProvider = ({ children }) => {
           someUserAttribute2: lastname,
         },
       });
+      const path = location?.state?.from?.pathname
       if (response.status === 201) {
         localStorage.setItem("token",response.data.encodedToken);
-        navigate(location?.state?.from?.pathname, { replace: true})
+        
+        navigate( path===undefined ? "/" : path ,{ replace: true})
         Toast({ type: "sucess", msg: `Welcome ${response.data.createdUser.someUserAttribute1}` });
         setUserName(response.data.createdUser.someUserAttribute1)
       }
@@ -91,9 +93,12 @@ const AuthProvider = ({ children }) => {
           password: password,
         },
       });
+      const path = location?.state?.from?.pathname
+
       if (response.status === 200) {
         localStorage.setItem("token",response.data.encodedToken);
-        navigate(location?.state?.from?.pathname, { replace: true})
+        // navigate(location?.state?.from?.pathname, { replace: true})
+        navigate( path===undefined ? "/" : path ,{ replace: true})
         Toast({ type: "success", msg: "Log In successful" });
       }
     } catch (error) {
