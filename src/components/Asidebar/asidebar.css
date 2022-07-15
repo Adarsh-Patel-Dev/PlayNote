@@ -1,35 +1,41 @@
 .asidebar {
+    position: sticky;
     display: flex;
     width: auto;
     max-width: 15rem;
     height: 90vh;
-    background-color: #cdc9f7;
     color: black;
     justify-content: space-between;
     flex-direction: column;
     padding: 2rem 0;
+    top: 4rem;
 }
 
-
 .asidebar-menu{
-gap: 1rem;
+gap: 4rem;
 }
 
 .asidebar-list {
+    width: 100%;
     padding: 0;
-    align-items: flex-start;
+    align-items: center;
     grid-gap: 0.5rem;
-    gap: 1.2rem;
+    grid-gap: 1.2rem;
+    /* gap: 1.2rem; */
 }
 
 .asidebar-list-items {
+    width:100%;
+    font-weight: inherit;
     font-size: 1.2rem;
     display: flex;
+    grid-gap: 11px;
     gap: 11px;
+    /* padding: 0.8rem 1rem; */
+    justify-content: center;
     align-items: center;
+    transition: 1s;
 }
-
-
 
 .asidebar-btn {
     border: transparent;
@@ -37,6 +43,14 @@ gap: 1rem;
     font-size: 1rem;
     padding: 0.6rem;
     background: #5348C7;
+    transition: 1s;
+}
+
+.asidebar-btn:hover{
+    cursor: pointer;
+    background-color: #7165f9;
+    transform: scale(1.1);
+    transition: 1s;
 }
 
 .asidebar-user{
@@ -59,4 +73,82 @@ gap: 1rem;
     background-color: #5348C7;
     color: white;
  
+}
+
+.asidebar-user-logout{
+    cursor: pointer;
+}
+
+.asidebar-user-logout:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    color: #5348C7;
+}
+
+
+
+/*
+other Approach for styling navlink:
+directly using "active" class
+*/
+
+/* .asidebar-list a.active{
+ text-decoration: underline;
+ font-weight: bold;
+} */
+
+/* using classNames*/
+
+.asidebar-list a.is-active {
+    width: 100%;
+    font-weight: bold;
+    /* color: rgb(255, 255, 255); */
+    background-color: #c4c0f2;
+    border-radius: 0px 50px 50px 0px;
+    
+    padding: 0.8rem 1rem;
+    border-left: 5px solid mediumpurple;
+}
+
+.asidebar-list a.not-active{
+    width: 9rem;
+    padding: 0.8rem 1rem;
+    transition: 1s;
+    color:gray;
+}
+
+.asidebar-list a.not-active:hover{
+    color:black;
+    transition: 1s;
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background-color: #c4c0f2;
+    border-radius: 0px 50px 50px 0px;
+    
+}
+
+.add-note-btn{
+    font-family: inherit;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    color: rgb(41, 40, 40);
+    font-size: 1rem;
+    background: #c4c0f2;
+    transition: 1s;
+    font-weight: 700;
+    padding: 1rem; 
+}
+.add-note-btn:hover{
+    box-shadow: 0 0 10px 0px mediumpurple inset, 0 0 10px 4px mediumpurple;
+    font-family: inherit;
+    border-radius: 10px;
+    border: 2px solid mediumpurple;
+    color: rgb(41, 40, 40);
+    font-size: 1rem;
+    background: transparent;
+    /* background: mediumpurple; */
+    transition: 1s;
+    font-weight: 700;
+    transform: scale(1);
+    padding: 1rem; 
 }

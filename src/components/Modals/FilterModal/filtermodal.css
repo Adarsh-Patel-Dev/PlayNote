@@ -1,6 +1,17 @@
-.filter-modal{
-    max-width: 20rem;
+.modal-container-filter {
+    -webkit-backdrop-filter: brightness(0.7);
+    backdrop-filter: brightness(0.7);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.filter-modal {
     height: auto;
+    width: min-content;
 }
 
 .modal-header{
@@ -15,4 +26,10 @@
     right: -4px;
     top: -4px;
     position: absolute;
+}
+
+.apply-filter-btn {
+    position: relative;
+    top: 0rem;
+    right: -17rem;
 }

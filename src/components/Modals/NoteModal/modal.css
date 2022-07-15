@@ -9,12 +9,12 @@
   transform: translate(-50%, -50%);
 }
 
-  .flex-start{
-      gap:1.5rem;
-      flex-direction: row-reverse;
-      align-items: flex-start;
-      justify-content: flex-end;
-  }
+.flex-start {
+  grid-gap: 1.5rem;
+  gap: 1.5rem;
+  align-items: baseline;
+  justify-content: flex-start;
+}
  
   .flex-start li {
     display: flex;
@@ -26,11 +26,11 @@
   
 .modal {
   font-size: 0rem;
-  height: 32rem;
+  height: max-content;
   border-radius: 5px;
   background-color: white;
   color: black;
-  width: 20rem;
+  width: 30rem;
   padding: 1rem;
   position: absolute;
   top: 50%;
@@ -59,10 +59,8 @@
   }
   
   .label {
-    margin-bottom: -8px;
-    padding-top: 0.5rem;
     color: black;
-    font-size: 14px;
+    font-size: 1rem;
 }
   .close {
     cursor: pointer;
@@ -80,7 +78,7 @@
   .modal-body {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1.8rem;
   }
   
   .checkbox-input {
@@ -137,16 +135,18 @@
   }
   
   input[type="color"] {
-    /* visibility: hidden; */
     cursor: pointer;
     border: none;
   }
 
-  .color-pallete{
-      position: relative;
-      bottom: 18px;
-      left: 8.5rem;
-  }
+  .color-pallete {
+    width: 2.5rem;
+    opacity: 0;
+    z-index: 1;
+    position: relative;
+    bottom: 18px;
+    left: 18.5rem;
+}
 
   .create-color{
     background-color: aqua;
@@ -164,4 +164,26 @@
       color: #5348C7;
       font-family: inherit;
   }
+
+  .add-label {
+    position: absolute;
+    color: #5348C7;
+    font-size: 1.2rem;
+    cursor: pointer;
+    right: 14.7rem;
+}
   
+  .color-picker-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    bottom: 28px;
+    right: 7rem;
+    color: gray;
+    position: absolute;
+    width: 30px;
+    height: 29px;
+}
+
+.submit-btn{
+  cursor: pointer;
+}

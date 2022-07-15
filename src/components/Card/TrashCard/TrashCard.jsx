@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  MdOutlineUnarchive,
+  MdOutlinePriorityHigh,
   MdLabelOutline,
   MdOutlineDelete,
   MdOutlineRestoreFromTrash,
@@ -38,7 +38,7 @@ function TrashCard({ note }) {
       className="note-card-body"></div>
       <div className="card-label-priority">
       <div className="note-card-label"><MdLabelOutline/>{label}</div>
-        <span className="note-card-label">{priority}</span>
+        <span className="note-card-label"><MdOutlinePriorityHigh/>{priority}</span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>

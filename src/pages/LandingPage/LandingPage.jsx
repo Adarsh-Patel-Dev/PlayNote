@@ -1,27 +1,32 @@
 import React from "react";
 import "./landingpage.css";
+import HeroImg from "../../Assets/heroImage.svg"
 import { NavLink } from "react-router-dom"
 
 function LandingPage() {
+  const encodedToken = localStorage.getItem("token")
   return (
     <div>
       <div className="main-container">
         <div className="main-container-details">
-          <h1 className="main-container-heading">PlayNote</h1>
-          <div className="main-container-detail">
-            <p>Meet your Modern Note Taking App</p>
-          </div>
-          <div className="main-container-description">
-            Manage your daily tasks and workflow in a modern way and boost your
-            efficiency without any efforts.
-          </div>
+          <p className="main-container-heading"><span className="orange">Create,</span> Oraganise Your Notes with <span className="easy-text">PlayNote</span></p>
+
+          <div className="cta-btns ">
+          
          <NavLink to ="/home">
-         <button className="main-container-btn">Join Now</button>
+        { encodedToken ?
+           <button className="main-container-btn">Get Started</button>
+           : ""
+           }
          </NavLink>  
-          <p className="main-container-login-msg">Already Have an Account?</p>
+         <NavLink to="/login">
+          <button className="main-container-btn border">Login</button>
+         </NavLink>
+         </div>
+
         </div>
         <div className="main-container-img">
-        <img src="https://i.pinimg.com/originals/dc/bf/01/dcbf010c2319a0820e5e70acd061f553.png" />
+        <img src={HeroImg} />
         </div>
       </div>
     </div>

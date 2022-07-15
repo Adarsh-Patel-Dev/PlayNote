@@ -1,197 +1,205 @@
 import React, { useState } from "react";
-import { MdClose, MdOutlineColorLens  } from "react-icons/md";
+import {
+  MdClose,
+  MdOutlineColorLens,
+  MdLabelOutline,
+  MdAddCircleOutline,
+} from "react-icons/md";
 import { useNoteContext } from "../../../Context/noteContext";
 import { RichTextEditor } from "../../RichTextEditor/RichTextEditor";
 import "./modal.css";
 
 function NoteModal() {
-  const [ColorModal, setColorModal] = useState(false);
-
-  const { noteState, noteDispatch, title, priority, textareaValue, label, addNote, editNote, notesBgColor, noteModal, isEdit } = useNoteContext();
-
+  let {
+    noteState,
+    noteDispatch,
+    title,
+    priority,
+    textareaValue,
+    label,
+    addNote,
+    editNote,
+    notesBgColor,
+    noteModal,
+    isEdit,
+  } = useNoteContext();
 
   return (
     <div
-      style={{ display: noteModal ? "block" : "none" , }} defaultValue="#FFFF"
+      style={{ display: noteModal ? "block" : "none" }}
+      onClick={() => {
+        noteDispatch({ type: "NOTE_MODAL", payload: false });
+        noteDispatch({ type: "CLEAR_INPUT" });
+        noteDispatch({ type: "IS_EDIT", payload: false });
+      }}
+      defaultValue="#FFFF"
       className="modal--container"
     >
-      <div id="myModal" className="modal" style={{ backgroundColor:notesBgColor }} >
-      <form onSubmit={isEdit?editNote:addNote}>
-        <div className="modal-content">
-          <MdClose
-            onClick={() => {
-              noteDispatch({ type: "NOTE_MODAL", payload: false });
-              noteDispatch({ type: "CLEAR_INPUT" });
-            }}
-            className="close"
-          ></MdClose>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        id="myModal"
+        className="modal"
+        style={{ backgroundColor: notesBgColor }}
+      >
+        <form onSubmit={isEdit ? editNote : addNote}>
+          <div className="modal-content">
+            <MdClose
+              onClick={() => {
+                noteDispatch({ type: "NOTE_MODAL", payload: false });
+                noteDispatch({ type: "CLEAR_INPUT" });
+                noteDispatch({ type: "IS_EDIT", payload: false });
+              }}
+              className="close"
+            ></MdClose>
 
-          <div className="modal-body">
-            <p className="modal-title">Title</p>
-            <input
-              placeholder="enter title of note"
-              value={noteState.title}
-              required
-              onChange={(e) =>
-                noteDispatch({ type: "TITLE", payload: e.target.value })
-              }
-              className="input"
-            />
+            <div className="modal-body">
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Title</p>
+                <input
+                  placeholder="enter title of note"
+                  value={noteState.title}
+                  required
+                  onChange={(e) =>
+                    noteDispatch({ type: "TITLE", payload: e.target.value })
+                  }
+                  className="input"
+                />
+              </div>
 
-            <p className="modal-title">Labels</p>
-            <div className="flex-row-center flex-start">
-                <label key="home" htmlFor="home" className="label">
-                  <input
-                    type="radio"
-                    name="label"
-                    required
-                    id="home"
-                    checked={label === "home"}
-                    onChange={() =>
-                      noteDispatch({ type: "LABEL", payload: "home" })
-                    }
-                  />
-                  <p className="label">home</p>
-                </label>
-                <label key="school" htmlFor="school" className="label">
-                  <input
-                    type="radio"
-                    name="label"
-                    required
-                    id="school"
-                    checked={label === "school"}
-                    onChange={() =>
-                      noteDispatch({ type: "LABEL", payload: "school" })
-                    }
-                  />
-                  <p className="label">school</p>
-                </label>
-                <label key="office" htmlFor="office" className="label">
-                  <input
-                    type="radio"
-                    name="label"
-                    required
-                    id="office"
-                    checked={label === "office"}
-                    onChange={() =>
-                      noteDispatch({ type: "LABEL", payload: "office" })
-                    }
-                  />
-                  <p className="label">office</p>
-                </label>
-            </div>
+              <p className="modal-title">Description</p>
 
-            <p className="modal-title">Priority</p>
-            <div className="flex-row-center flex-start">
-                <label key="low" htmlFor="low" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="low"
-                    checked={priority === "low"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "low" })
-                    }
-                  />
-                  <p className="label">low</p>
-                </label>
-                <label key="medium" htmlFor="medium" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="medium"
-                    checked={priority === "medium"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "medium" })
-                    }
-                  />
-                  <p className="label">medium</p>
-                </label>
-                <label key="high" htmlFor="high" className="label">
-                  <input
-                    type="radio"
-                    name="priority"
-                    required
-                    className=""
-                    id="high"
-                    checked={priority === "high"}
-                    onChange={() =>
-                      noteDispatch({ type: "PRIORITY", payload: "high" })
-                    }
-                  />
-                  <p className="label">high</p>
-                </label>
-            </div>
+              <div>
+                <RichTextEditor textAreaValue={textareaValue} />
+              </div>
 
-            <p className="modal-title">Description</p>
-            {/* <textarea
-              required
-              className="modal-textarea"
-              value={textareaValue}
-              placeholder="enter description of note here"
-              onChange={(e) =>
-                noteDispatch({ type: "TEXTAREA", payload: e.target.value })
-              }
-            /> */}
-           
-            <div>
-              <RichTextEditor textAreaValue={textareaValue}/>
-            </div>
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Label</p>
+                <div className="flex-row-center flex-start">
+                  <label key="low" htmlFor="low" className="label">
+                    <input
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="low"
+                      checked={label === "home"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "home" })
+                      }
+                    />
+                    <p className="label">Home</p>
+                  </label>
+                  <label key="medium" htmlFor="medium" className="label">
+                    <input
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="medium"
+                      checked={label === "office"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "office" })
+                      }
+                    />
+                    <p className="label">Office</p>
+                  </label>
+                  <label key="high" htmlFor="high" className="label">
+                    <input
+                      type="radio"
+                      name="label"
+                      required
+                      className=""
+                      id="high"
+                      checked={label === "school"}
+                      onChange={() =>
+                        noteDispatch({ type: "LABEL", payload: "school" })
+                      }
+                    />
+                    <p className="label">School</p>
+                  </label>
+                </div>
+              </div>
 
-            <span className="color-pallete">
-              {/* <input type="submit" className="asidebar-btn"/> */}
-              <label htmlFor="create-color">
-              <MdOutlineColorLens >colorLens</MdOutlineColorLens>
-              <input
-                type="color"
-                className="input-color"
-                id="create-color"
-                value={notesBgColor}
-                onChange={(e)=>noteDispatch({
-                  type:"NOTES_BG_COLOR",
-                  payload: e.target.value,
-                })}
-              />
-              <span className="material-icons rte-icons1">
-              
+              <div className="flex-col-center gap-1rem-start">
+                <p className="modal-title">Priority</p>
+                <div className="flex-row-center flex-start">
+                  <label key="low" htmlFor="low" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      value={1}
+                      className=""
+                      id="low"
+                      checked={priority === "low"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "low" })
+                      }
+                    />
+                    <p className="label">low</p>
+                  </label>
+                  <label key="medium" htmlFor="medium" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      value={2}
+                      className=""
+                      id="medium"
+                      checked={priority === "medium"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "medium" })
+                      }
+                    />
+                    <p className="label">medium</p>
+                  </label>
+                  <label key="high" htmlFor="high" className="label">
+                    <input
+                      type="radio"
+                      name="priority"
+                      required
+                      value={3}
+                      className=""
+                      id="high"
+                      checked={priority === "urgent"}
+                      onChange={() =>
+                        noteDispatch({ type: "PRIORITY", payload: "urgent" })
+                      }
+                    />
+                    <p className="label">high</p>
+                  </label>
+                </div>
+              </div>
+
+              <span className="color-pallete">
+                <label htmlFor="create-color">
+                  <input
+                    type="color"
+                    className="input-color"
+                    id="create-color"
+                    value={notesBgColor}
+                    onChange={(e) =>
+                      noteDispatch({
+                        type: "NOTES_BG_COLOR",
+                        payload: e.target.value,
+                      })
+                    }
+                  />
+                </label>
               </span>
-              </label>
-            </span>
+              <span className="color-picker-icon">
+                <MdOutlineColorLens />
+              </span>
 
-            <input type="submit" 
-            value={isEdit?"Update":"Add Note"}
-             style={{position: "absolute",bottom: "1rem",right: "1rem"}}
-              className="submit-btn"
-            />
-
-            {/* <div className="modal--btn">
-              {true ? (
-                <button
-                  className="btn-modal"
-                  onClick={() =>
-                    addToNotes(notesState, label, priority, noteDispatch)
-                  }
-                >
-                  ADD Note
-                </button>
-              ) : (
-                <button
-                  className="btn-modal"
-                  onClick={(e) =>
-                    editNotes(e, notesState, label, priority, noteDispatch)
-                  }
-                >
-                  EDIT Note
-                </button>
-              )}
-            </div> */}
+              <input
+                type="submit"
+                value={isEdit ? "Update" : "Add Note"}
+                style={{ position: "absolute", bottom: "1rem", right: "1rem" }}
+                className="submit-btn"
+              />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
       </div>
     </div>
   );

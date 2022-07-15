@@ -1,5 +1,5 @@
 import React from "react";
-import { MdOutlineUnarchive, MdOutlineDelete,MdLabelOutline } from "react-icons/md";
+import { MdOutlineUnarchive, MdOutlineDelete,MdLabelOutline,MdOutlinePriorityHigh } from "react-icons/md";
 import { BsPinAngle } from "react-icons/bs";
 import { useNoteContext } from "../../../Context/noteContext";
 
@@ -34,7 +34,7 @@ function ArchiveCard({ note }) {
       className="note-card-body"></div>
       <div className="card-label-priority">
       <div className="note-card-label"><MdLabelOutline/>{label}</div>
-        <span className="note-card-label">{priority}</span>
+        <span className="note-card-label"><MdOutlinePriorityHigh/>{priority}</span>
       </div>
 
       <div className="note-card-footer flex-row-center">

@@ -1,10 +1,9 @@
-// ========TODO - to be implemented in future============
-
-
 import { createContext, useContext, useReducer } from "react";
+import { useNoteContext } from "./noteContext";
 
 const FilterContext = createContext();
 const useFilterContext = () => useContext(FilterContext);
+// const { addToNotes }= useNoteContext();
 
 const filterReducer = (state, action) => {
   switch (action.type) {
@@ -34,14 +33,14 @@ const filterReducer = (state, action) => {
     case "PRIORITY_HIGH":
       return {
         ...state,
-        priority: { ...state.priority, high: !state.priority.high },
+        priority: { ...state.priority, urgent: !state.priority.urgent },
       };
 
-    case "SORT_BY_LATEST":
-      return { ...state, sortByLatest: action.payload };
+    case "SORT_BY_DATE":
+      return { ...state, sortByDate: action.payload };
 
-    case "SORT_BY_OLDEST":
-      return { ...state, sortByOldest: action.payload };
+    case "SORT_BY_PRIORITY":
+      return { ...state, sortByPriority: action.payload };
 
     case "RESET_FILTER":
       return {
@@ -54,23 +53,25 @@ const filterReducer = (state, action) => {
         priority: {
           low: false,
           medium: false,
-          high: false,
+          urgent: false,
         },
-        sortByLatest: false,
-        sortByOldest: false,
+        sortByDate: null,
+        sortByPriority: null,
       };
 
     case "FILTER_MODAL":
-      return { ...state, filterModal: payload };
+      return { ...state, filterModal: action.payload };
 
     default:
       return state;
   }
 };
 
-
-
 const FilterProvider = ({ children }) => {
+  const {
+    noteState: { addToNotes },
+  } = useNoteContext();
+
   const [filterState, filterDispatch] = useReducer(filterReducer, {
     filterModal: false,
     label: {
@@ -81,10 +82,10 @@ const FilterProvider = ({ children }) => {
     priority: {
       low: false,
       medium: false,
-      high: false,
+      urgent: false,
     },
-    sortByLatest: false,
-    sortByOldest: false,
+    sortByDate: null,
+    sortByPriority: null,
   });
 
   return (

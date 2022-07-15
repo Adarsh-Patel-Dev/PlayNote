@@ -3,10 +3,10 @@ import {
   MdLabelOutline,
   MdOutlineModeEdit,
   MdOutlineDelete,
-  MdOutlineColorLens,
   MdOutlineArchive,
+  MdOutlinePriorityHigh,
 } from "react-icons/md";
-import { BsPinAngle } from "react-icons/bs";
+import { BsFillPinAngleFill, BsPinAngle } from "react-icons/bs";
 import "./note-card.css";
 import { useNoteContext } from "../../../Context/noteContext";
 
@@ -16,12 +16,35 @@ function NoteCard({ note }) {
     title,
     textareaValue,
     label,
+    labelArray,
     priority,
     notesBgColor,
     noteCreatedDate,
     isEdit,
   } = note;
-  const { noteDispatch, adddToArchive, adddToTrash } = useNoteContext();
+  let { noteDispatch, adddToArchive, addToNotes, adddToTrash, pinnedNotes, deleteFromTrash } = useNoteContext();
+
+  console.log("pinned",pinnedNotes)
+  console.log("all", addToNotes)
+
+  console.log("pinnedNOtesafterdelete", pinnedNotes)
+  
+
+  function priorityColor(priority) {
+    switch (priority) {
+      case "urgent":
+        return "red";
+
+      case "medium":
+        return "orange";
+
+      case "low":
+        return "green";
+
+      default:
+        break;
+    }
+  }
 
   return (
     <div
@@ -30,9 +53,30 @@ function NoteCard({ note }) {
     >
       <div className="note-card-header flex-row-center">
         <h3 className="note-card-title">{title}</h3>
-        <span className="note-card-pinned">
+
+          {/* ------- todo------- */}
+
+       {/* { pinnedNotes.find((note)=>note._id === _id) ?
+         (<span 
+        onClick={()=>{
+          noteDispatch({type:"PINNED_NOTES",payload:pinnedNotes.filter(note=>note._id!==_id)})
+          noteDispatch({type:"ADD_TO_NOTES",payload:[...addToNotes,note]})
+        }
+        
+        }
+        className="note-card-pinned">
+          <BsFillPinAngleFill />
+        </span>):(
+          <span 
+        onClick={()=>{noteDispatch({type:"PINNED_NOTES", payload : [...pinnedNotes, note]})
+        noteDispatch({type:"ADD_TO_NOTES",payload:addToNotes.filter(note=>note._id!==_id)})
+        deleteFromTrash(_id, noteDispatch)
+        console.log("clicked")
+        }}
+        className="note-card-pinned">
           <BsPinAngle />
         </span>
+        )} */}
       </div>
 
       <div
@@ -45,7 +89,15 @@ function NoteCard({ note }) {
           <MdLabelOutline />
           {label}
         </div>
-        <span className="note-card-label">{priority}</span>
+        <span
+          style={{
+            color: priorityColor(priority),
+            borderColor: priorityColor(priority),
+          }}
+          className="note-card-priority"
+        >
+          ! {priority}
+        </span>
       </div>
       <div className="note-card-footer flex-row-center">
         <p className="note-card-created">created on {noteCreatedDate}</p>
